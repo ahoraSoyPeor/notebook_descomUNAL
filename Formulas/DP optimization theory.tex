@@ -1,0 +1,21 @@
+\begin{tabular}{|p{0.8cm}| p{4.5cm}| p{3.3cm}|p{0.9cm}| p{1.3cm}|}
+	\hline
+	Name & Original Recurrence & Sufficient Condition &  &  \\ 
+	\hline
+	CH 1 & $dp[i] = min_{j<i}\{dp[j] + b[j] * a[i]\}$ & $b[j] \geq b[j+1]$Optionally $a[i] \leq a[i+1]$ & $O(n^2)$ & $O(n)$ \\ 
+	\hline
+	CH 2 & $dp[i][j] = min_{k<j}\{dp[i-1][k] + b[k] * a[j]\}$ & $b[k] \geq b[k+1]$ Optionally $a[j] \leq a[j+1]$ & $O(kn^2)$ & $O(kn)$ \\ 
+	\hline
+	D\&Q & $dp[i][j] = min_{k<j}\{dp[i-1][k] + C[k][j]\}$ & $A[i][j] \leq A[i][j+1]$ & $O(kn^2)$ & $O(kn\log n)$ \\ 
+	\hline
+	Knuth & $dp[i][j] = min_{i<k<j}\{dp[i][k] + dp[k][j]\} + C[i][j]$ & $A[i, j -1] \leq A[i, j] \leq A[i+1, j]$ & $O(n^3)$ & $O(n^2)$ \\ 
+	\hline
+\end{tabular} 
+
+Notes:
+
+\begin{itemize}
+	\item $A[i][j]$ - the smallest k that gives the optimal answer, for example in $dp[i][j] = dp[i-1][k] + C[k][j]$
+	\item $C[i][j]$ - some given cost function
+	\item We can generalize a bit in the following way $dp[i] = \min_{j<i}\{F[j]+b[j] * a[i]\}$, where $F[j]$ is computed from $dp[j]$ in constant time
+\end{itemize}

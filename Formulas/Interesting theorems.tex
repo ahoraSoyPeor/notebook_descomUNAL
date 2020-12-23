@@ -1,0 +1,8 @@
+\begin{itemize}
+\item $a^{d} \equiv a^{d \mod \phi(n)} \mod n$ \\
+      if $a \in \mathbb{Z}^{n_{*}}$ or $a \notin \mathbb{Z}^{n_{*}}$ and $d \mod \phi(n) \neq 0$
+\item $a^{d} \equiv a^{\phi(n)} \mod n$ \\
+      if $a \notin \mathbb{Z}^{n_{*}}$ and $d \mod \phi(n) = 0$
+\item thus, for all $a, n$ and $d$ (with $d \geq \log_2(n)$) \\
+      $a^{d} \equiv a^{\phi(n) + d \mod \phi(n)} \mod n$
+\end{itemize}
