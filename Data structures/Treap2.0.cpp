@@ -1,24 +1,30 @@
+/// Complexity: log(|N|) per operation
+/// Tested: https://tinyurl.com/yafpy7zc
+
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-uniform_int_distribution<int> rnd(0, INT_MAX);
+uniform_int_distribution<ll> rnd(0, LLONG_MAX);
 
 typedef long long T;
-struct node {
-  node *left, *right;
-  int prior, sz;
+struct treap {
+  treap *left, *right, *father;
+  ll prior; 
+  int sz, idx;
   T value, lazy_sum, sum;
-  node() {
-    left = right = NULL;
+  treap(T x) {
+    left = right = father = NULL;
     prior = rnd(rng);
     sz = 1;
-    value = lazy_sum = sum = 0;
+    value = sum = x;
+    lazy_sum = 0;
   }
 };
 
-int cnt(node* t)  { return !t ? 0 : t->sz; }
-int sum(node* t)  { return !t ? 0 : t->sum; }
+int cnt(treap* t)  { return !t ? 0 : t->sz; }
+T sum(treap* t)  { return !t ? 0 : t->sum; }
+T value(treap* t)  { return !t ? 0 : t->value; }
 
-void propagate(node* t) {
-  if(t->lazy_sum) {
+void propagate(treap* t) {
+  if(t && t->lazy_sum) {
     if(t->left) t->left->lazy_sum += t->lazy_sum;
     if(t->right) t->right->lazy_sum += t->lazy_sum;
     t->sum += cnt(t) * t->lazy_sum;
@@ -27,12 +33,25 @@ void propagate(node* t) {
   }
 }
 
-void update(node *t) {
+void update(treap *t) {
+  propagate(t->left);
+  propagate(t->right);
   t->sz = cnt(t->left) + cnt(t->right) + 1;
-  t->value = sum(t->left) + sum(t->right) + t->value;
+  t->sum = sum(t->left) + sum(t->right) + value(t);
+  if(t->left) t->left->father = t;
+  if(t->right) t->right->father = t;
 }
 
-pair<node*, node*> split(node* t, int left_count) {
+void add_value(treap *t, T v) {
+  t->value += v;
+  update(t);
+}
+void add_lazy_sum(treap *t, T v) {
+  t->lazy_sum += v;
+  update(t);
+}
+
+pair<treap*, treap*> split(treap* t, int left_count) {
   if(!t) return {NULL, NULL};
   propagate(t);
   if(cnt(t->left) >= left_count) {
@@ -49,7 +68,7 @@ pair<node*, node*> split(node* t, int left_count) {
   }
 }
 
-node* merge(node *s, node *t) {
+treap* merge(treap *s, treap *t) {
   if(!s) return t;
   if(!t) return s;
   propagate(s);
@@ -63,4 +82,25 @@ node* merge(node *s, node *t) {
     update(t);
     return t;
   }
+};
+
+void print(treap *x) {
+  if(!x) return;
+  propagate(x);
+  print(x->left);
+  cout << value(x) << ", ";
+  print(x->right);
 }
+
+int find_left_count(treap* root, treap* x) { /// x not inclusive
+  if(!x) return 0;
+  int ans = cnt(x->left);
+  while(x != root) {
+    treap *par = x->father;
+    if(par->right == x) ans += cnt(par->left)+1;
+    x = par;
+  }
+  return ans;
+}
+
+treap *root = NULL;
