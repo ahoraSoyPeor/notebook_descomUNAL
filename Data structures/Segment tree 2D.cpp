@@ -1,3 +1,5 @@
+/// Complexity: |log(|N|^2) per operation
+/// Tested: https://tinyurl.com/ado2fybw
 struct info {
   ll val;
 };
