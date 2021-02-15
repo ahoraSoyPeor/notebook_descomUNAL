@@ -13,7 +13,7 @@ bool diophantine(ll a, ll b, ll c, ll &x, ll &y, ll &g) {
   y = (c - a*x) / b;
   return true;
 }
-///finds the first k | x + b * k / gcd(a, b) >= val
+///finds the first k | x + b * k / gcd(a, b) >= val, gracias
 ll greater_or_equal_than(ll a, ll b, ll x, ll val, ll g) {
   lf got = 1.0 * (val - x) * g / b;
   return b > 0 ? ceil(got) : floor(got);
