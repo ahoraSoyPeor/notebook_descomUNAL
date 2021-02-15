@@ -16,7 +16,7 @@ struct mcmf {
     ed.push_back({v, u, 0, 0, -cost});
   }
   bool dijkstra(int s, int t) {
-    fill(d.begin(), d.end(), INF);
+    fill(d.begin(), d.end(), INF_TYPE);
     fill(p.begin(), p.end(), -1);
     set<pair<type, int>> q;
     d[s] = 0;
@@ -32,8 +32,8 @@ struct mcmf {
         }
       }
     }
-    for(int i = 0; i < n; i++) phi[i] = min(INF, phi[i]+d[i]);
-    return d[t] != INF;
+    for(int i = 0; i < n; i++) phi[i] = min(INF_TYPE, phi[i]+d[i]);
+    return d[t] != INF_TYPE;
   }
   pair<int, type> max_flow(int s, int t) {
     type mc = 0;
