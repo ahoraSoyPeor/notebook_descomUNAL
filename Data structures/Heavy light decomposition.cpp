@@ -1,6 +1,6 @@
 /// Complexity: O(|N|)
 /// Tested: https://tinyurl.com/ybdbmbw7(problem L)
-int idx;
+int idx; /// top is father of the chain, up is father of a node
 vector<int> len, depth, in, out, top, up;
 int dfs_len( int u, int p, int d ) {
   up[u] = p;  depth[u] = d;
@@ -14,7 +14,7 @@ int dfs_len( int u, int p, int d ) {
 }
 void dfs_hld( int u, int p = 0 ) {
   in[u] = idx++;
-  narr[in] = val[u]; /// to initialize the segment tree
+  narr[ in[u] ] = val[u]; /// to initialize the segment tree
   for( auto& v : g[u] ) {
     if( v == p ) continue;
     top[v] = (v == g[u][0] ? top[u] : v);
@@ -36,7 +36,8 @@ data query_hld( int u, int v ) {
   val = val+query_DS(in[u], in[v]);
   return val;
 /// when updates are on edges use:
-///   if (depth[u] == depth[v]) return val;
+///   val[v] is cost_edge(up[v], v)
+///   if(depth[u] == depth[v]) return val;
 ///   val = val+query_DS(hld_index[u] + 1, hld_index[v]);
 }
 void build(int n, int root) {
