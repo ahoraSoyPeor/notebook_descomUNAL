@@ -5,7 +5,7 @@ namespace decomposition {
     for (int v : g[u])
       if (!depth[v] && v != p)
         cnt[u] += dfs(v, u);
-      return cnt[u];
+    return cnt[u];
   }
   int get_centroid (int u, int r, int p = -1) {
     for (int v : g[u])
@@ -13,7 +13,7 @@ namespace decomposition {
         return get_centroid(v, r, u);
     return u;
   }
-  // centroid depth of all tree is 1 and father is 0 (you can set up this when call this)
+  // depth of all tree's centroid is 1 and father is 0 (you can set up this when call this)
   int decompose (int u, int d = 1) {
     int centroid = get_centroid(u, dfs(u) >> 1);
     depth[centroid] = d; // remove this node from component
