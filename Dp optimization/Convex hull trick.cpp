@@ -28,3 +28,5 @@ struct cht {
     return lines[pos].eval(x);
   }
 };
+// for max: order slops non-decreasing
+// for min: order slops non-descending

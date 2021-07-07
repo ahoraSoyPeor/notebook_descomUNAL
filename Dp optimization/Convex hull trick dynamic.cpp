@@ -35,3 +35,4 @@ struct CHT : public multiset<line> {
 		return l.m*x+l.b;
 	}
 };
+// for minimum, you must change (b, m) to (-b, -m)
