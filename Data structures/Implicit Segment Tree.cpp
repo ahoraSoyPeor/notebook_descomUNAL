@@ -23,7 +23,7 @@ int get_val(node* root, int lz, int a, int b) {
   return root->val;
 }
 int NEUTRAL = 0;
-struct implict_segtree { 
+struct implicit_segtree { 
   node* root;
   int n; // 0-indexed
   implict_segtree(int n) : n(n), root(new node()) {}
