@@ -26,7 +26,7 @@ int NEUTRAL = 0;
 struct implicit_segtree { 
   node* root;
   int n; // 0-indexed
-  implict_segtree(int n) : n(n), root(new node()) {}
+  implicit_segtree(int n) : n(n), root(new node()) {}
   void update(int a, int b, int x) { update(root, a, b, 0, n-1, x); }
   void update(node* &root, int a, int b, int l, int r, int x, int lz = 0) {
     if((l > b || r < a) && !root) return; // break condition, this line optimizes memory
