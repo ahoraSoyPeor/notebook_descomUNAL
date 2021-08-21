@@ -47,7 +47,7 @@ struct implict_segtree {
   int query(node* root, int a, int b, int l, int r, int lz = 0) {
     if(l > b || r < a) return NEUTRAL;
     if(root) root->propagate(l, r);
-    if(a <= l && r <= b) { 
+    if((a <= l && r <= b) || !root) { 
       return get_val(root, lz, l, r);
     } else {
       int m = (l+r) >> 1;
