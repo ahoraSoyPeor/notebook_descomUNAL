@@ -1,8 +1,4 @@
-set splitright
-set shiftwidth=2
-set tabstop=2
-set autoindent
-set expandtab
+set splitright autoindent expandtab shiftwidth=2 tabstop=2
 
 command! Terminal :vert terminal ++cols=60
 autocmd VimEnter *.cpp Terminal
