@@ -10,7 +10,7 @@ vector<int> get_phi(string &p) {
   }
   return phi;
 }
-int get_match(string &t, string &p) {
+int get_matches(string &t, string &p) {
   vector<int> phi = get_phi(p);
   int matches = 0;
   for(int i = 0, j = 0; i < t.size(); ++i ) {
