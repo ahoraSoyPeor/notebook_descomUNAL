@@ -6,7 +6,7 @@ struct suffix_array { // s MUST not have 0 value
   suffix_array(string s) {
     s.push_back('$'); // always add something less to input, so it stays in pos 0
     int n = s.size(), mx = max(alpha, n)+2;
-    vector<int> a(n+1), a1(n+1), c(2*n), c1(2*n), head(mx), cnt(mx);
+    vector<int> a(n), a1(n), c(n+1), c1(n+1), head(mx), cnt(mx);
     pos = lcp = a;
     for(int i = 0; i < n; i++) c[i] = s[i], a[i] = i, cnt[ c[i] ]++;
     for(int i = 0; i < mx-1; i++) head[i+1] = head[i] + cnt[i];
