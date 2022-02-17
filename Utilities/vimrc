@@ -1,11 +1,10 @@
 set splitright autoindent expandtab shiftwidth=2 tabstop=2
 
-command! Terminal :vert terminal ++cols=60
-autocmd VimEnter *.cpp Terminal
+autocmd VimEnter *.cpp :vert terminal ++cols=60
 
-noremap <F5> :w <CR> <C-w>l clear <CR> make compile <CR>
-noremap <F6> :w <CR> <C-w>l clear <CR> make compileAndRun <CR>
-tnoremap <F7> <CR> make runWithInput <CR>
+nmap <F5> :w <CR> <C-l> clear <CR> make <CR>
+nmap <F6> :w <CR> <C-l> clear <CR> make && ./sol < in <CR>
+tnoremap <F7> <CR> ./sol < in <CR>
 
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
@@ -13,5 +12,5 @@ nmap <C-l> <C-w>l
 tnoremap <C-h> <C-w>h
 tnoremap <C-l> <C-w>l
 
-noremap QQ :qall! <CR>
-tnoremap QQ <C-w>N:qall!<CR>
+noremap QQ :qa! <CR>
+tnoremap QQ <C-w>N:qa!<CR>
