@@ -1,13 +1,13 @@
 set splitright autoindent tabstop=2
 
-autocm VimEnter *.cpp :vert term ++cols=60
+autocm vimenter *.cpp :vert term ++cols=60
 
-nmap <F5> :w <CR> <C-l> clear <CR> make <CR>
-nmap <F6> :w <CR> <C-l> clear <CR> make && ./sol < in <CR>
-tnoremap <F7> ./sol < in <CR>
+nmap <f5> :w <cr> <c-l> clear <cr> make <cr>
+nmap <f6> :w <cr> <c-l> clear <cr> make && ./sol < in <cr>
+tnoremap <f7> ./sol < in <cr>
 
-nmap <C-l> <C-w>l
-tnoremap <C-h> <C-w>h
+nmap <c-l> <c-w>l
+tnoremap <c-h> <c-w>h
 
-nmap QQ :qa! <CR>
-tnoremap QQ <C-w>N:qa! <CR>
+nmap QQ :qa! <cr>
+tnoremap QQ <c-w>N:qa! <cr>
