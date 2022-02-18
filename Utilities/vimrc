@@ -1,4 +1,4 @@
-set splitright autoindent expandtab shiftwidth=2 tabstop=2
+set splitright autoindent tabstop=2
 
 autocm VimEnter *.cpp :vert term ++cols=60
 
