@@ -4,13 +4,10 @@ autocmd VimEnter *.cpp :vert terminal ++cols=60
 
 nmap <F5> :w <CR> <C-l> clear <CR> make <CR>
 nmap <F6> :w <CR> <C-l> clear <CR> make && ./sol < in <CR>
-tnoremap <F7> <CR> ./sol < in <CR>
+tnoremap <F7> ./sol < in <CR>
 
-nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
-
 tnoremap <C-h> <C-w>h
-tnoremap <C-l> <C-w>l
 
-noremap QQ :qa! <CR>
-tnoremap QQ <C-w>N:qa!<CR>
+nmap QQ :qa! <CR>
+tnoremap QQ <C-w>N:qa! <CR>
