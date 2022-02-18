@@ -1,6 +1,6 @@
 set splitright autoindent tabstop=2
 
-autocm vimenter *.cpp :vert term ++cols=60
+autocmd vimenter *.cpp :vert term ++cols=60
 
 nmap <f5> :w <cr> <c-l> clear <cr> make <cr>
 nmap <f6> :w <cr> <c-l> clear <cr> make && ./sol < in <cr>
