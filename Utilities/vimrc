@@ -1,6 +1,6 @@
 set splitright autoindent expandtab shiftwidth=2 tabstop=2
 
-autocmd VimEnter *.cpp :vert terminal ++cols=60
+autocm VimEnter *.cpp :vert term ++cols=60
 
 nmap <F5> :w <CR> <C-l> clear <CR> make <CR>
 nmap <F6> :w <CR> <C-l> clear <CR> make && ./sol < in <CR>
