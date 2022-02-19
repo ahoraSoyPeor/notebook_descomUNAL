@@ -1,4 +1,4 @@
-set splitright autoindent tabstop=2
+set spr ai sw=2 ts=2
 
 autocmd vimenter *.cpp :vert term ++cols=60
 
