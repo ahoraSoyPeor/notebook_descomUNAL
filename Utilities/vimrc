@@ -1,6 +1,6 @@
 set spr ai sw=2 ts=2
 
-autocmd vimenter *.cpp :vert term ++cols=60
+au vimenter *.cpp :vert term ++cols=60
 
 nmap <f5> :w <cr> <c-l> clear <cr> make <cr>
 nmap <f6> :w <cr> <c-l> clear <cr> make && ./sol < in <cr>
