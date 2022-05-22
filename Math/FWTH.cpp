@@ -9,7 +9,7 @@ vector< long long > haddamard( vector< long long > a, bool inverse )
     {
       for( int j = 0; j < k; ++ j )
       {
-        int u = a[i+j], v = a[i+j+k];
+        long long u = a[i+j], v = a[i+j+k];
         a[i+j] = u + v;
         a[i+j+k] = u - v;
       }
