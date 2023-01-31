@@ -36,9 +36,9 @@ data query_hld( int u, int v ) {
   val = val+query_DS(in[u], in[v]);
   return val;
 /// when updates are on edges use:
-///   val[v] is cost_edge(up[v], v)
+///   val[v] is cost_edge(up[v], v), mind root's cost
 ///   if(depth[u] == depth[v]) return val;
-///   val = val+query_DS(hld_index[u] + 1, hld_index[v]);
+///   val = val+query_DS(in[u] + 1, in[v]);
 }
 void build(int n, int root) {
   top = len = in = out = up = depth = vector<int>(n+1);
