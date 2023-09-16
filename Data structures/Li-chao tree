@@ -1,0 +1,64 @@
+typedef long long   ty;
+
+struct point {
+  ty m, b;
+  ty ev (ty x) {
+    return m * x + b;
+  }
+};
+
+/// M = 4 * (number of updates) * (log R) where R is the range of the segtree
+/// oo is the max abs value that the function can take
+
+const ty R = 1e9+5;
+const int M = 1e7;
+const ty oo = 2e18;
+
+struct li_chao {
+  /// see comments for min
+
+  int nodes;
+  point lines[M];
+  int lf[M], rg[M];
+
+  void ini () {
+    nodes = 0;
+    memset(lf, -1, sizeof lf);
+    memset(rg, -1, sizeof rg);
+    lines[0] = {0, -oo}; /// change to {0, oo};
+  }
+
+  int add_line (int node, ty l, ty r, point nw) {
+    if (node == -1) {
+      lines[++nodes] = nw;
+      return nodes;
+    }
+    ty m = (l + r) / 2;
+
+    bool lef = nw.ev(l) > lines[node].ev(l); ///change > to <
+    bool mid = nw.ev(m) > lines[node].ev(m); ///change > to <
+
+    if (mid) swap(nw, lines[node]);
+    lines[++nodes] = lines[node];
+    lf[nodes] = lf[node];
+    rg[nodes] = rg[node];
+
+    int sv = nodes;
+    if (r == l) return sv;
+    if (lef != mid) lf[sv] = add_line(lf[node], l, m, nw);
+    else rg[sv] = add_line(rg[node], m + 1, r, nw);
+    return sv;
+  }
+
+  ty get(int node, ty l, ty r, ty x) {
+    if (node == -1) return -oo; ///change to oo
+    ty m = (l + r) / 2;
+    if(l == r) {
+        return lines[node].ev(x);
+    } else if(x < m) {
+        return max(lines[node].ev(x), get(lf[node], l, m, x)); ///change max to min
+    } else {
+        return max(lines[node].ev(x), get(rg[node], m + 1, r, x)); ///change max to min
+    }
+  }
+};
