@@ -121,7 +121,7 @@ inline lf orient( pt a, pt b, pt c ) { return cross( b - a, c - a ); };
 
 vector< pt > convex_hull( vector< pt > v ) {
   sort( v.begin(), v.end() );//remove repeated points if needed
-  const int n = (int) v.size();
+  const int n = v.size();
   if( n < 3 ) return v;
   vector< pt > ch( 2 * n );
 
