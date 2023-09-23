@@ -117,27 +117,30 @@ inline lf cross( pt p, pt q ) { return p.x * q.y - q.x * p.y ; }
 
 inline lf orient( pt a, pt b, pt c ) { return cross( b - a, c - a ); };
 
-vector<pt> ch( vector< pt > pol )
+const lf EPS = 1e-8L;
+const lf EPS0 = 0.0L;//Keep = 0 for integer coordinates, otherwise = EPS
+
+vector< pt > convex_hull( vector< pt > v )
 {
-  int n = (int) pol.size();
-  sort( pol.begin(), pol.end() );
-  if( n < 3 ) return pol;
+  sort( v.begin(), v.end() );//remove repeated points if needed
+  const int n = (int) v.size();
+  if( n < 3 ) return v;
   vector< pt > ch( 2 * n );
 
   int k = 0;
   for( int i = 0; i < n; ++ i )
   {
-    while( k > 1 && orient( ch[k-2], ch[k-1], pol[i] ) <= 0 )
+    while( k > 1 && orient( ch[k-2], ch[k-1], v[i] ) <= EPS0 )
       --k;
-    ch.push_back( pol[i] );
+		ch[k++] = v[i];
   }
 
-  int t = k;
+  const int t = k;
   for( int i = n - 2; i >= 0; -- i )
   {
-    while( k > t && orient( ch[k-2], ch[k-1], pol[i] ) <= 0 )
+    while( k > t && orient( ch[k-2], ch[k-1], v[i] ) <= EPS0 )
       --k;
-    ch.push_back( pol[i] );
+		ch[k++] = v[i];
   }
   ch.resize( k - 1 );
   return ch;
