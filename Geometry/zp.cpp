@@ -79,6 +79,70 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
     return ret;
 }
 
+
+typedef long double lf;
+
+struct pt
+{
+    lf x,y;
+    pt(){}
+    pt(lf a , lf b): x(a), y(b){}
+
+    pt operator - (const pt &q ) const {
+        return {x - q.x , y - q.y };
+    }
+
+    pt operator + (const pt &q ) const {
+        return {x + q.x , y + q.y };
+    }
+
+    pt operator * (const lf &t ) const {
+        return {x * t , y * t };
+    }
+
+    bool operator < ( const pt & q ) const {
+      if( x != q.x ) return x < q.x;
+      return y < q.y;
+    }
+};
+
+inline lf norm2 ( pt p ) { return p.x * p.x + p.y * p.y; }
+inline lf dis2 ( pt p, pt q ) { return norm2(p-q); }
+
+inline lf norm ( pt p ) { return hypot ( p.x, p.y ); }
+inline lf dis( pt p, pt q ) { return norm( p - q ); }
+
+inline lf dot( pt p, pt q ) { return p.x * q.x + p.y * p.y; }
+inline lf cross( pt p, pt q ) { return p.x * q.y - q.x * p.y ; }
+
+inline lf orient( pt a, pt b, pt c ) { return cross( b - a, c - a ); };
+
+vector<pt> ch( vector< pt > pol )
+{
+  int n = (int) pol.size();
+  sort( pol.begin(), pol.end() );
+  if( n < 3 ) return pol;
+  vector< pt > ch( 2 * n );
+
+  int k = 0;
+  for( int i = 0; i < n; ++ i )
+  {
+    while( k > 1 && orient( ch[k-2], ch[k-1], pol[i] ) <= 0 )
+      --k;
+    ch.push_back( pol[i] );
+  }
+
+  int t = k;
+  for( int i = n - 2; i >= 0; -- i )
+  {
+    while( k > t && orient( ch[k-2], ch[k-1], pol[i] ) <= 0 )
+      --k;
+    ch.push_back( pol[i] );
+  }
+  ch.resize( k - 1 );
+  return ch;
+}
+
 enum {IN,OUT,ON};
 
 int point_in_polygon( vector< pt > &pol, pt &p ) {
