@@ -166,9 +166,9 @@ int point_in_convex_polygon( const vector < pt > &pol, const pt &p ){
     if( orient( pol[low], pol[high], p ) < -E0 ) return OUT;
     if( orient( pol[high], pol[0], p ) < -E0 ) return OUT;
 
-    if( l == 1 && orient( pol[0], pol[low], p ) <= E0 ) return ON;
+    if( low == 1 && orient( pol[0], pol[low], p ) <= E0 ) return ON;
     if( orient( pol[low], pol[high], p ) <= E0 ) return ON;
-    if( r == (int) pol.size() -1 && orient( pol[high], pol[0], p ) <= E0 ) return ON;
+    if( high == (int) pol.size() -1 && orient( pol[high], pol[0], p ) <= E0 ) return ON;
     return IN;    
 }
 
