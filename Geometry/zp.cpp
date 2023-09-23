@@ -82,7 +82,7 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
 
 typedef long double lf;
 const lf EPS = 1e-8L;
-const lf EPS0 = 0.0L;//Keep = 0 for integer coordinates, otherwise = EPS
+const lf E0 = 0.0L;//Keep = 0 for integer coordinates, otherwise = EPS
 
 struct pt
 {
@@ -127,14 +127,14 @@ vector< pt > convex_hull( vector< pt > v ) {
 
   int k = 0;
   for( int i = 0; i < n; ++ i ) {
-    while( k > 1 && orient( ch[k-2], ch[k-1], v[i] ) <= EPS0 )
+    while( k > 1 && orient( ch[k-2], ch[k-1], v[i] ) <= E0 )
       --k;
     ch[k++] = v[i];
   }
 
   const int t = k;
   for( int i = n - 2; i >= 0; -- i ) {
-    while( k > t && orient( ch[k-2], ch[k-1], v[i] ) <= EPS0 )
+    while( k > t && orient( ch[k-2], ch[k-1], v[i] ) <= E0 )
       --k;
     ch[k++] = v[i];
   }
