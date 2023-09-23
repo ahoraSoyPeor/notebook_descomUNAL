@@ -111,7 +111,7 @@ struct pt
 inline lf norm2 ( pt p ) { return p.x * p.x + p.y * p.y; }
 inline lf dis2 ( pt p, pt q ) { return norm2(p-q); }
 
-inline lf norm ( pt p ) { return hypot ( p.x, p.y ); }
+inline lf norm ( pt p ) { return hypotl ( p.x, p.y ); }
 inline lf dis( pt p, pt q ) { return norm( p - q ); }
 
 inline lf dot( pt p, pt q ) { return p.x * q.x + p.y * p.y; }
@@ -142,15 +142,15 @@ vector< pt > convex_hull( vector< pt > v ) {
   return ch;
 }
 
-enum {IN,OUT,ON};
+enum {OUT,IN,ON};
 
-int point_in_polygon( vector< pt > &pol, pt &p ) {
+int point_in_polygon( const vector< pt > &pol, const pt &p ) {
   int wn = 0;
   for( int i = 0, n = pol.size(); i < n; ++ i ) {
-    long long c = orient( p, pol[i], pol[(i+1)%n] );
-    if( c == 0 && dot( pol[i] - p, pol[(i+1)%n] - p ) <= 0 ) return ON; 
-    if( c > 0 && pol[i].y <= p.y && pol[(i+1)%n].y > p.y ) ++ wn;
-    if( c < 0 && pol[(i+1)%n].y <= p.y && pol[i].y > p.y ) --wn;
+    lf c = orient( p, pol[i], pol[(i+1)%n] );
+    if( fabsl( c ) <= E0 && dot( pol[i] - p, pol[(i+1)%n] - p ) <= E0 ) return ON;
+    if( c > 0 && pol[i].y <= p.y + E0 && pol[(i+1)%n].y - p.y > E0 ) ++wn;
+    if( c < 0 && pol[(i+1)%n].y <= p.y + E0 && pol[i].y - p.y > E0 ) --wn;
   }
   return wn ? IN : OUT;
 }
