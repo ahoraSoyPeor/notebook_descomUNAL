@@ -158,7 +158,7 @@ int point_in_polygon( const vector< pt > &pol, const pt &p ) {
 int point_in_convex_polygon( const vector < pt > &pol, const pt &p ){
     int low = 1, high = pol.size() - 1;
     while( high - low > 1 ){
-        int mid = ( high + low ) / 2;
+        int mid = ( low + high ) / 2;
         if( orient( pol[0], pol[mid], p ) >= -E0 ) low = mid;
         else high = mid;
     }
