@@ -155,17 +155,21 @@ int point_in_polygon( const vector< pt > &pol, const pt &p ) {
   return wn ? IN : OUT;
 }
 
-bool point_in_convex_polygon( const vector < pt > &pol, const pt &p ){
+int point_in_convex_polygon( const vector < pt > &pol, const pt &p ){
     int low = 1, high = pol.size() - 1;
     while( high - low > 1 ){
         int mid = ( high + low ) / 2;
         if( orient( pol[0], pol[mid], p ) >= -E0 ) low = mid;
         else high = mid;
     }
-    if( orient( pol[0], pol[low], p ) < -E0 ) return false;
-    if( orient( pol[low], pol[high], p ) < -E0 ) return false;
-    if( orient( pol[high], pol[0], p ) < -E0 ) return false;
-    return true;    
+    if( orient( pol[0], pol[low], p ) < -E0 ) return OUT;
+    if( orient( pol[low], pol[high], p ) < -E0 ) return OUT;
+    if( orient( pol[high], pol[0], p ) < -E0 ) return OUT;
+
+    if( l == 1 && orient( pol[0], pol[low], p ) <= E0 ) return ON;
+    if( orient( pol[low], pol[high], p ) <= E0 ) return ON;
+    if( r == (int) pol.size() -1 && orient( pol[high], pol[0], p ) <= E0 ) return ON;
+    return IN;    
 }
 
 lf areaOfIntersectionOfTwoCircles( lf r1, lf r2, lf d ) {
