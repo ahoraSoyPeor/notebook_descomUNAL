@@ -119,24 +119,21 @@ inline lf cross( pt p, pt q ) { return p.x * q.y - q.x * p.y ; }
 
 inline lf orient( pt a, pt b, pt c ) { return cross( b - a, c - a ); };
 
-vector< pt > convex_hull( vector< pt > v )
-{
+vector< pt > convex_hull( vector< pt > v ) {
   sort( v.begin(), v.end() );//remove repeated points if needed
   const int n = (int) v.size();
   if( n < 3 ) return v;
   vector< pt > ch( 2 * n );
 
   int k = 0;
-  for( int i = 0; i < n; ++ i )
-  {
+  for( int i = 0; i < n; ++ i ) {
     while( k > 1 && orient( ch[k-2], ch[k-1], v[i] ) <= EPS0 )
       --k;
     ch[k++] = v[i];
   }
 
   const int t = k;
-  for( int i = n - 2; i >= 0; -- i )
-  {
+  for( int i = n - 2; i >= 0; -- i ) {
     while( k > t && orient( ch[k-2], ch[k-1], v[i] ) <= EPS0 )
       --k;
     ch[k++] = v[i];
