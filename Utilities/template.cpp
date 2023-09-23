@@ -10,14 +10,13 @@ typedef long long ll;
 typedef double lf;
 typedef pair<int,int> pii;
  
-const int N = 1e5+10;
-const int oo = 1e9;
+const int N = 2e5+10;
  
 int main () {
   ios::sync_with_stdio(0);
   cin.tie(0);
   #ifdef LOCAL
-    freopen("input.txt", "r", stdin);
+    freopen("in", "r", stdin);
   #else
     #define endl '\n'
   #endif
