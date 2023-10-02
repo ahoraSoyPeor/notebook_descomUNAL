@@ -124,7 +124,7 @@ struct line {
 
 pt lines_intersection( line a, line b ) {
   lf d = cross( a.norm, b.norm );
-	//assert( fabsl( d ) > E0 );
+  //assert( fabsl( d ) > E0 );
   lf dx = a.norm.y * b.c - a.c * b.norm.y;
   lf dy = a.c * b.norm.x - a.norm.x * b.c;
   return { dx / d, dy / d };
