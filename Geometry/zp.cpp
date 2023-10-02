@@ -82,6 +82,7 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
 typedef long double lf;
 const lf EPS = 1e-8L;
 const lf E0 = 0.0L;//Keep = 0 for integer coordinates, otherwise = EPS
+const lf INF = 9e18;
 
 struct pt {
     lf x,y;
