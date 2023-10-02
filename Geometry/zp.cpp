@@ -79,13 +79,11 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
     return ret;
 }
 
-
 typedef long double lf;
 const lf EPS = 1e-8L;
 const lf E0 = 0.0L;//Keep = 0 for integer coordinates, otherwise = EPS
 
-struct pt
-{
+struct pt {
     lf x,y;
     pt(){}
     pt(lf a , lf b): x(a), y(b){}
@@ -118,6 +116,48 @@ inline lf dot( pt p, pt q ) { return p.x * q.x + p.y * q.y; }
 inline lf cross( pt p, pt q ) { return p.x * q.y - q.x * p.y ; }
 
 inline lf orient( pt a, pt b, pt c ) { return cross( b - a, c - a ); };
+
+struct line {
+  pt norm;
+  lf c;
+};
+
+pt lines_intersection( line a, line b ) {
+  lf d = cross( a.norm, b.norm );
+	//assert( fabsl( d ) > E0 );
+  lf dx = a.norm.y * b.c - a.c * b.norm.y;
+  lf dy = a.c * b.norm.x - a.norm.x * b.c;
+  return { dx / d, dy / d };
+}
+
+line bisector( pt a, pt b ) {
+  pt norm = ( b - a ), p = ( a + b ) * 0.5L;
+  lf c = -dot( norm, p );
+  return { norm, c };
+}
+
+struct Circle
+{
+  pt center;
+  lf r;
+
+  Circle( pt p, lf rad ) : center( p ), r( rad ) {};
+
+  Circle( pt p, pt q ) {
+    center = ( p + q ) * 0.5L;
+    r = dis( p, q ) * 0.5L;
+  }
+
+  Circle( pt a, pt b, pt c ) {
+    line lb = bisector( a, b ), lc = bisector( a, c );
+    center = lines_intersection( lb, lc );
+    r = dis( a, center );
+  }
+
+  bool contains( pt &p ) {
+    return dis2( center, p ) <= r * r + E0;
+  }
+};
 
 vector< pt > convex_hull( vector< pt > v ) {
   sort( v.begin(), v.end() );//remove repeated points if needed
@@ -169,7 +209,33 @@ int point_in_convex_polygon( const vector < pt > &pol, const pt &p ) {
     if( low == 1 && orient( pol[0], pol[low], p ) <= E0 ) return ON;
     if( orient( pol[low], pol[high], p ) <= E0 ) return ON;
     if( high == (int) pol.size() -1 && orient( pol[high], pol[0], p ) <= E0 ) return ON;
-    return IN;    
+    return IN;
+}
+
+Circle min_circle( vector< pt > v ) {
+  random_shuffle( v.begin(), v.end() );
+  auto f2 = [&]( int a, int b ){
+    Circle ans( v[a], v[b] );
+    for( int i = 0; i < a; ++ i )
+      if( !ans.contains( v[i] ) )
+        ans = Circle( v[i], v[a], v[b] );
+    return ans;
+  };
+
+  auto f1 = [&]( int a ){
+    Circle ans( v[a], 0.0L );
+    for( int i = 0; i < a; ++ i )
+      if( !ans.contains( v[i] ) )
+        ans = f2( i, a );
+    return ans;
+	};
+
+  Circle ans( v[0], 0.0L );
+  for( int i = 1; i < (int) v.size(); ++ i )
+    if( !ans.contains( v[i] ) )
+      ans = f1( i );
+  
+  return ans;
 }
 
 lf areaOfIntersectionOfTwoCircles( lf r1, lf r2, lf d ) {
