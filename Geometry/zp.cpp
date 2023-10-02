@@ -136,8 +136,7 @@ line bisector( pt a, pt b ) {
   return { norm, c };
 }
 
-struct Circle
-{
+struct Circle {
   pt center;
   lf r;
 
