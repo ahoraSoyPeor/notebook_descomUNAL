@@ -240,10 +240,9 @@ Circle min_circle( vector< pt > v ) {
 
 pair < pt, pt >  closest ( vector< pt > v ) {
   sort( v.begin(), v.end() );
-
   pair< pt, pt > ans;
   lf d2 = INF;
-
+    
   function< void( int, int ) > solve = [&]( int l, int r ) {
     if( l == r ) return;
       
@@ -269,9 +268,8 @@ pair < pt, pt >  closest ( vector< pt > v ) {
         nb.push_back( v[i] );
     }
 
-    const int m = (int) nb.size();
-    for( int i = 0; i < m; ++ i ) {
-      for( int k = i + 1; k < m; ++ k ) {
+    for( int i = 0; i < (int) nb.size(); ++ i ) {
+      for( int k = i + 1; k < (int) nb.size(); ++ k ) {
         lf dy = ( nb[k].y - nb[i].y );
         if( dy * dy > d2 ) break;
         lf nd2 = dis2( nb[i], nb[k] );
