@@ -228,7 +228,7 @@ Circle min_circle( vector< pt > v ) {
       if( !ans.contains( v[i] ) )
         ans = f2( i, a );
     return ans;
-	};
+  };
 
   Circle ans( v[0], 0.0L );
   for( int i = 1; i < (int) v.size(); ++ i )
