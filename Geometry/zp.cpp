@@ -238,7 +238,7 @@ Circle min_circle( vector< pt > v ) {
   return ans;
 }
 
-pair < pt, pt >  closest ( vector< pt > v ) {
+pair < pt, pt >  closest_points ( vector< pt > v ) {
   sort( v.begin(), v.end() );
   pair< pt, pt > ans;
   lf d2 = INF;
