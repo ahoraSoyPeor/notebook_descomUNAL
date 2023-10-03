@@ -102,7 +102,7 @@ struct pt {
     }
 
     bool operator < ( const pt & q ) const {
-      if( x != q.x ) return x < q.x;
+      if( fabsl( x - q.x ) > E0 ) return x < q.x;
       return y < q.y;
     }
 };
