@@ -24,3 +24,15 @@ struct circle{
     bool contain(point &p) { return abs(center - p) < r + eps;}
 };
 T cross(point a, point b) { return a.x*b.y - a.y*b.x; }
+
+lf areaOfIntersectionOfTwoCircles( lf r1, lf r2, lf d ) {
+  if( d >= r1 + r2 )
+    return 0.0L;
+  if( d <= fabsl( r2 - r1 ) )
+    return PI * ( r1 < r2 ? r1 * r1 : r2 * r2 );
+  lf alpha = safeAcos( ( r1 * r1 - r2 * r2 + d * d ) / ( 2.0L * d * r1 ) );
+  lf betha = safeAcos( ( r2 * r2 - r1 * r1 + d * d ) / ( 2.0L * d * r2 ) );
+  lf a1 = r1 * r1 * ( alpha - sinl( alpha ) * cosl( alpha ) );
+  lf a2 = r2 * r2 * ( betha - sinl( betha ) * cosl( betha ) );
+  return a1 + a2;
+};
