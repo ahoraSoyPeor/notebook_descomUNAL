@@ -84,57 +84,92 @@ const lf EPS = 1e-8L;
 const lf E0 = 0.0L;//Keep = 0 for integer coordinates, otherwise = EPS
 const lf INF = 9e18;
 
+enum {OUT,IN,ON};
+
 struct pt {
-    lf x,y;
-    pt(){}
-    pt(lf a , lf b): x(a), y(b){}
+  lf x,y;
+  pt(){}
+  pt(lf a , lf b): x(a), y(b){}
 
-    pt operator - (const pt &q ) const {
-        return {x - q.x , y - q.y };
-    }
+  pt operator - (const pt &q ) const {
+    return {x - q.x , y - q.y };
+  }
 
-    pt operator + (const pt &q ) const {
-        return {x + q.x , y + q.y };
-    }
+  pt operator + (const pt &q ) const {
+    return {x + q.x , y + q.y };
+  }
 
-    pt operator * (const lf &t ) const {
-        return {x * t , y * t };
-    }
+  pt operator * (const lf &t ) const {
+    return {x * t , y * t };
+  }
 
-    bool operator < ( const pt & q ) const {
-      if( fabsl( x - q.x ) > E0 ) return x < q.x;
-      return y < q.y;
-    }
+  bool operator < ( const pt & q ) const {
+    if( fabsl( x - q.x ) > E0 ) return x < q.x;
+    return y < q.y;
+  }
+
+  void normalize()
+  {
+    lf norm = hypotl( x, y );
+    if( fabsl( norm ) > EPS )
+      x /= norm, y /= norm;
+  }
 };
 
-inline lf norm2 ( pt p ) { return p.x * p.x + p.y * p.y; }
-inline lf dis2 ( pt p, pt q ) { return norm2(p-q); }
+pt rot90( pt p ) { return { -p.y, p.x }; }
+pt rot( pt p, lf w ) { 
+  return { cosl( w ) * p.x - sinl( w ) * p.y, sinl( w ) * p.x + cosl( w ) * p.y };
+}
 
-inline lf norm ( pt p ) { return hypotl ( p.x, p.y ); }
-inline lf dis( pt p, pt q ) { return norm( p - q ); }
+lf norm2 ( pt p ) { return p.x * p.x + p.y * p.y; }
+lf dis2 ( pt p, pt q ) { return norm2(p-q); }
 
-inline lf dot( pt p, pt q ) { return p.x * q.x + p.y * q.y; }
-inline lf cross( pt p, pt q ) { return p.x * q.y - q.x * p.y ; }
+lf norm ( pt p ) { return hypotl ( p.x, p.y ); }
+lf dis( pt p, pt q ) { return norm( p - q ); }
 
-inline lf orient( pt a, pt b, pt c ) { return cross( b - a, c - a ); };
+lf dot( pt p, pt q ) { return p.x * q.x + p.y * q.y; }
+lf cross( pt p, pt q ) { return p.x * q.y - q.x * p.y ; }
+
+lf orient( pt a, pt b, pt c ) { return cross( b - a, c - a ); };
 
 struct line {
-  pt norm;
+  pt nv;
   lf c;
+
+  line( pt _nv, lf _c ) : nv( _nv ), c( _c ) {}
+
+  line ( pt p, pt q ) {
+    nv = { p.y - q.y, q.x - p.x };
+    c = -dot( p, nv );
+  }
+
+  lf eval( pt p ) { return dot( nv, p ) + c; }
+
+  lf distance2( pt p ) {
+    return eval( p ) / norm2( nv ) * eval( p );
+  }
+
+  lf distance( pt p ) {
+    return fabsl( eval( p ) ) / norm( nv );
+  }
+
+  pt projection( pt p ) {
+    return p - nv * ( eval( p ) / norm2( nv ) );
+  }
 };
 
 pt lines_intersection( line a, line b ) {
-  lf d = cross( a.norm, b.norm );
+  lf d = cross( a.nv, b.nv );
   //assert( fabsl( d ) > E0 );
-  lf dx = a.norm.y * b.c - a.c * b.norm.y;
-  lf dy = a.c * b.norm.x - a.norm.x * b.c;
+  lf dx = a.nv.y * b.c - a.c * b.nv.y;
+  lf dy = a.c * b.nv.x - a.nv.x * b.c;
   return { dx / d, dy / d };
 }
 
 line bisector( pt a, pt b ) {
-  pt norm = ( b - a ), p = ( a + b ) * 0.5L;
-  lf c = -dot( norm, p );
-  return { norm, c };
+  pt nv = ( b - a ), p = ( a + b ) * 0.5L;
+  lf c = -dot( nv, p );
+  return line( nv, c );
 }
 
 struct Circle {
@@ -154,10 +189,44 @@ struct Circle {
     r = dis( a, center );
   }
 
-  bool contains( pt &p ) {
-    return dis2( center, p ) <= r * r + E0;
+  int contains( pt &p ) {
+    lf det = r * r - dis2( center, p );
+    if( fabsl( det ) <= E0 ) return ON;
+    return ( det > E0 ? IN : OUT );
   }
 };
+
+vector< pt > circle_line_intersection( Circle c, line l ) {
+  lf h2 = c.r * c.r - l.distance2( c.center );
+  if( fabsl( h2 ) < EPS ) return { l.projection( c.center ) };
+  if( h2 < 0.0L ) return {};
+  
+  pt dir = rot90( l.nv );
+  pt p = l.projection( c.center );
+  lf t = sqrtl( h2 / norm2( dir ) );
+
+  return { p + dir * t, p - dir * t };
+}
+
+vector< pt > circle_circle_intersection( Circle c1, Circle c2 ) {
+  pt dir = c2.center - c1.center;
+  lf d2 = dis2( c1.center, c2.center );
+
+  if( d2 <= E0 ) { 
+    //assert( fabsl( c1.r - c2.r ) > E0 );
+    return {};
+  }
+  
+  lf td = 0.5L * ( d2 + c1.r * c1.r - c2.r * c2.r );
+  lf h2 = c1.r * c1.r - td / d2 * td;
+
+  pt p = c1.center + dir * ( td / d2 );
+  if( fabsl( h2 ) < EPS ) return { p };
+  if( h2 < 0.0L ) return {};
+
+  pt dir_h = rot90(dir) * sqrtl( h2 / d2 );
+  return { p + dir_h, p - dir_h };
+}
 
 vector< pt > convex_hull( vector< pt > v ) {
   sort( v.begin(), v.end() );//remove repeated points if needed
@@ -182,8 +251,6 @@ vector< pt > convex_hull( vector< pt > v ) {
   return ch;
 }
 
-enum {OUT,IN,ON};
-
 int point_in_polygon( const vector< pt > &pol, const pt &p ) {
   int wn = 0;
   for( int i = 0, n = pol.size(); i < n; ++ i ) {
@@ -196,20 +263,20 @@ int point_in_polygon( const vector< pt > &pol, const pt &p ) {
 }
 
 int point_in_convex_polygon( const vector < pt > &pol, const pt &p ) {
-    int low = 1, high = pol.size() - 1;
-    while( high - low > 1 ) {
-        int mid = ( low + high ) / 2;
-        if( orient( pol[0], pol[mid], p ) >= -E0 ) low = mid;
-        else high = mid;
-    }
-    if( orient( pol[0], pol[low], p ) < -E0 ) return OUT;
-    if( orient( pol[low], pol[high], p ) < -E0 ) return OUT;
-    if( orient( pol[high], pol[0], p ) < -E0 ) return OUT;
+  int low = 1, high = pol.size() - 1;
+  while( high - low > 1 ) {
+    int mid = ( low + high ) / 2;
+    if( orient( pol[0], pol[mid], p ) >= -E0 ) low = mid;
+    else high = mid;
+  }
+  if( orient( pol[0], pol[low], p ) < -E0 ) return OUT;
+  if( orient( pol[low], pol[high], p ) < -E0 ) return OUT;
+  if( orient( pol[high], pol[0], p ) < -E0 ) return OUT;
 
-    if( low == 1 && orient( pol[0], pol[low], p ) <= E0 ) return ON;
-    if( orient( pol[low], pol[high], p ) <= E0 ) return ON;
-    if( high == (int) pol.size() -1 && orient( pol[high], pol[0], p ) <= E0 ) return ON;
-    return IN;
+  if( low == 1 && orient( pol[0], pol[low], p ) <= E0 ) return ON;
+  if( orient( pol[low], pol[high], p ) <= E0 ) return ON;
+  if( high == (int) pol.size() -1 && orient( pol[high], pol[0], p ) <= E0 ) return ON;
+  return IN;
 }
 
 Circle min_circle( vector< pt > v ) {
@@ -217,7 +284,7 @@ Circle min_circle( vector< pt > v ) {
   auto f2 = [&]( int a, int b ){
     Circle ans( v[a], v[b] );
     for( int i = 0; i < a; ++ i )
-      if( !ans.contains( v[i] ) )
+      if( ans.contains( v[i] ) == OUT )
         ans = Circle( v[i], v[a], v[b] );
     return ans;
   };
@@ -225,16 +292,16 @@ Circle min_circle( vector< pt > v ) {
   auto f1 = [&]( int a ){
     Circle ans( v[a], 0.0L );
     for( int i = 0; i < a; ++ i )
-      if( !ans.contains( v[i] ) )
+      if( ans.contains( v[i] ) == OUT )
         ans = f2( i, a );
     return ans;
   };
 
   Circle ans( v[0], 0.0L );
   for( int i = 1; i < (int) v.size(); ++ i )
-    if( !ans.contains( v[i] ) )
+    if( ans.contains( v[i] ) == OUT )
       ans = f1( i );
-  
+
   return ans;
 }
 
@@ -242,10 +309,10 @@ pair < pt, pt >  closest_points ( vector< pt > v ) {
   sort( v.begin(), v.end() );
   pair< pt, pt > ans;
   lf d2 = INF;
-    
+
   function< void( int, int ) > solve = [&]( int l, int r ) {
     if( l == r ) return;
-      
+
     int mid = ( l + r ) / 2;
     lf x_mid = v[mid].x;
     solve( l, mid );
@@ -280,15 +347,3 @@ pair < pt, pt >  closest_points ( vector< pt > v ) {
   solve( 0, v.size() -1 );
   return ans;
 }
-
-lf areaOfIntersectionOfTwoCircles( lf r1, lf r2, lf d ) {
-  if( d >= r1 + r2 )
-    return 0.0L;
-  if( d <= fabsl( r2 - r1 ) )
-    return PI * ( r1 < r2 ? r1 * r1 : r2 * r2 );
-  lf alpha = safeAcos( ( r1 * r1 - r2 * r2 + d * d ) / ( 2.0L * d * r1 ) );
-  lf betha = safeAcos( ( r2 * r2 - r1 * r1 + d * d ) / ( 2.0L * d * r2 ) );
-  lf a1 = r1 * r1 * ( alpha - sinl( alpha ) * cosl( alpha ) );
-  lf a2 = r2 * r2 * ( betha - sinl( betha ) * cosl( betha ) );
-  return a1 + a2;
-};
