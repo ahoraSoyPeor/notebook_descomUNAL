@@ -109,7 +109,7 @@ struct pt {
   }
 
   void normalize()
-  {
+{
     lf norm = hypotl( x, y );
     if( fabsl( norm ) > EPS )
       x /= norm, y /= norm;
