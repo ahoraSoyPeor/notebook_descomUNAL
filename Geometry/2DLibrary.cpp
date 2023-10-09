@@ -250,6 +250,19 @@ vector< pt > convex_hull( vector< pt > v ) {
   return ch;
 }
 
+vector< pt > cut( const vector< pt > &pol, line l ) {
+  vector< pt > ans;
+  for( int i = 0, n = pol.size(); i < n; ++ i ) {
+    lf s1 = l.eval( pol[i] ), s2 = l.eval( pol[(i+1)%n] );
+    if( s1 >= -EPS ) ans.push_back( pol[i] );
+    if( ( s1 < -EPS && s2 > EPS ) || ( s1 > EPS && s2 < -EPS ) ) {
+      line li = line( pol[i], pol[(i+1)%n] );
+      ans.push_back( lines_intersection( l, li ) );
+    }
+  }
+  return ans;
+}
+
 int point_in_polygon( const vector< pt > &pol, const pt &p ) {
   int wn = 0;
   for( int i = 0, n = pol.size(); i < n; ++ i ) {
