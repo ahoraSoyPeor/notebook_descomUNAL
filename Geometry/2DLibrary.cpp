@@ -1,88 +1,7 @@
-struct Halfplane { // Every half-plane allows the region to the LEFT of its line.
-    
-    Point p, pq; 
-    long double angle;
-
-    Halfplane() {}
-    Halfplane(const Point& a, const Point& b) : p(a), pq(b - a) {
-        angle = atan2l(pq.y, pq.x);    
-    }
-    
-    bool out(const Point& r) { 
-        return cross(pq, r - p) < -eps; 
-    }
-
-    bool operator < (const Halfplane& e) const { 
-        if (fabsl(angle - e.angle) < eps) return cross(pq, e.p - p) < 0;
-        return angle < e.angle;
-    } 
-
-    bool operator == (const Halfplane& e) const { 
-        return fabsl(angle - e.angle) < eps; 
-    }
-
-    friend Point inter(const Halfplane& s, const Halfplane& t) {
-        long double alpha = cross((t.p - s.p), t.pq) / cross(s.pq, t.pq);
-        return s.p + (s.pq * alpha);
-    }
-};
-
-vector<Point> hp_intersect(vector<Halfplane>& H) { 
-
-    Point box[4] = {  // Bounding box in CCW order
-        Point(inf, inf), 
-        Point(-inf, inf), 
-        Point(-inf, -inf), 
-        Point(inf, -inf) 
-    };
-
-    for(int i = 0; i<4; i++) {
-        Halfplane aux(box[i], box[(i+1) % 4]);
-        H.push_back(aux);
-    }
-
-    sort(H.begin(), H.end());
-    H.erase(unique(H.begin(), H.end()), H.end());
-
-    deque<Halfplane> dq;
-    int len = 0;
-    for(int i = 0; i < int(H.size()); i++) {
-        while (len > 1 && H[i].out(inter(dq[len-1], dq[len-2]))) {
-            dq.pop_back();
-            --len;
-        }
-        while (len > 1 && H[i].out(inter(dq[0], dq[1]))) {
-            dq.pop_front();
-            --len;
-        }
-        dq.push_back(H[i]);
-        ++len;
-    }
-
-    while (len > 2 && dq[0].out(inter(dq[len-1], dq[len-2]))) {
-        dq.pop_back();
-        --len;
-    }
-    while (len > 2 && dq[len-1].out(inter(dq[0], dq[1]))) {
-        dq.pop_front();
-        --len;
-    }
-
-    // Report empty intersection if necessary
-    if (len < 3) return vector<Point>();
-
-    vector<Point> ret(len);
-    for(int i = 0; i+1 < len; i++)
-        ret[i] = inter(dq[i], dq[i+1]);
-
-    ret.back() = inter(dq[len-1], dq[0]);
-    return ret;
-}
-
 typedef long double lf;
 const lf EPS = 1e-8L;
 const lf E0 = 0.0L;//Keep = 0 for integer coordinates, otherwise = EPS
-const lf INF = 9e18;
+const lf INF = 5e9;
 
 enum {OUT,IN,ON};
 
@@ -103,6 +22,10 @@ struct pt {
     return {x * t , y * t };
   }
 
+  pt operator / (const lf &t ) const {
+    return {x / t , y / t };
+  }
+
   bool operator < ( const pt & q ) const {
     if( fabsl( x - q.x ) > E0 ) return x < q.x;
     return y < q.y;
@@ -116,7 +39,7 @@ struct pt {
 };
 
 pt rot90( pt p ) { return { -p.y, p.x }; }
-pt rot( pt p, lf w ) { 
+pt rot( pt p, lf w ) {
   return { cosl( w ) * p.x - sinl( w ) * p.y, sinl( w ) * p.x + cosl( w ) * p.y };
 }
 
@@ -199,7 +122,7 @@ vector< pt > circle_line_intersection( Circle c, line l ) {
   lf h2 = c.r * c.r - l.distance2( c.center );
   if( fabsl( h2 ) < EPS ) return { l.projection( c.center ) };
   if( h2 < 0.0L ) return {};
-  
+
   pt dir = rot90( l.nv );
   pt p = l.projection( c.center );
   lf t = sqrtl( h2 / norm2( dir ) );
@@ -211,11 +134,11 @@ vector< pt > circle_circle_intersection( Circle c1, Circle c2 ) {
   pt dir = c2.center - c1.center;
   lf d2 = dis2( c1.center, c2.center );
 
-  if( d2 <= E0 ) { 
+  if( d2 <= E0 ) {
     //assert( fabsl( c1.r - c2.r ) > E0 );
     return {};
   }
-  
+
   lf td = 0.5L * ( d2 + c1.r * c1.r - c2.r * c2.r );
   lf h2 = c1.r * c1.r - td / d2 * td;
 
@@ -358,4 +281,86 @@ pair < pt, pt >  closest_points ( vector< pt > v ) {
   };
   solve( 0, v.size() -1 );
   return ans;
+}
+
+struct Halfplane {
+
+  pt p, pq;
+  lf angle;
+
+  Halfplane() {}
+  Halfplane(const pt& a, const pt& b) : p(a), pq(b - a) {
+    angle = atan2l(pq.y, pq.x);
+  }
+
+  bool out(const pt& r) {
+    return cross(pq, r - p) < -EPS;
+  }
+
+  bool operator < (const Halfplane& e) const {
+    return angle < e.angle;
+  }
+
+  friend pt inter(const Halfplane& s, const Halfplane& t) {
+      lf alpha = cross((t.p - s.p), t.pq) / cross(s.pq, t.pq);
+      return s.p + (s.pq * alpha);
+  }
+};
+
+vector<pt> hp_intersect(vector<Halfplane>& H) {
+  pt box[4] = { pt(INF, INF), pt(-INF, INF), pt(-INF, -INF), pt(INF, -INF) };
+
+  for(int i = 0; i < 4; ++i ) {
+    Halfplane aux(box[i], box[(i+1) % 4]);
+    H.push_back(aux);
+  }
+
+  sort(H.begin(), H.end());
+  deque<Halfplane> dq;
+  int len = 0;
+  for(int i = 0; i < int(H.size()); ++i ) {
+
+    while (len > 1 && H[i].out(inter(dq[len-1], dq[len-2]))) {
+      dq.pop_back();
+      --len;
+    }
+
+    while (len > 1 && H[i].out(inter(dq[0], dq[1]))) {
+      dq.pop_front();
+      --len;
+    }
+
+    if (len > 0 && fabsl(cross(H[i].pq, dq[len-1].pq)) < EPS ) {
+      if (dot(H[i].pq, dq[len-1].pq) < 0.0)
+        return vector<pt>();
+
+      if (H[i].out(dq[len-1].p)) {
+        dq.pop_back();
+        --len;
+      }
+      else continue;
+    }
+
+    dq.push_back(H[i]);
+    ++len;
+  }
+
+  while (len > 2 && dq[0].out(inter(dq[len-1], dq[len-2]))) {
+    dq.pop_back();
+    --len;
+  }
+
+  while (len > 2 && dq[len-1].out(inter(dq[0], dq[1]))) {
+    dq.pop_front();
+    --len;
+  }
+
+  if (len < 3) return vector<pt>();
+
+  vector<pt> ret(len);
+  for(int i = 0; i+1 < len; ++i ) 
+    ret[i] = inter(dq[i], dq[i+1]);
+  ret.back() = inter(dq[len-1], dq[0]);
+  //remove repeated points if needed
+  return ret;
 }
