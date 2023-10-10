@@ -25,6 +25,20 @@ struct circle{
 };
 T cross(point a, point b) { return a.x*b.y - a.y*b.x; }
 
+bool circumcircle_contains( triangle tr, pt D ) {//triange CCW
+  pt A = tr.vert[0] - D, B = tr.vert[1] - D, C = tr.vert[2] - D;
+
+  lf norm_a = norm2( tr.vert[0] ) - norm2( D );
+  lf norm_b = norm2( tr.vert[1] ) - norm2( D );
+  lf norm_c = norm2( tr.vert[2] ) - norm2( D );
+
+  lf det1 = A.x * ( B.y * norm_c - norm_b * C.y );
+  lf det2 = B.x * ( C.y * norm_a - norm_c * A.y );
+  lf det3 = C.x * ( A.y * norm_b - norm_a * B.y );
+
+  return det1 + det2 + det3 > E0;
+}
+
 lf areaOfIntersectionOfTwoCircles( lf r1, lf r2, lf d ) {
   if( d >= r1 + r2 )
     return 0.0L;
