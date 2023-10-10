@@ -173,6 +173,24 @@ vector< pt > convex_hull( vector< pt > v ) {
   return ch;
 }
 
+vector<pt> minkowski( vector<pt> P, vector<pt> Q ) {
+  rotate( P.begin(), min_element( P.begin(), P.end() ), P.end() );
+  rotate( Q.begin(), min_element( Q.begin(), Q.end() ), Q.end() );
+
+  P.push_back(P[0]), P.push_back(P[1]);
+  Q.push_back(Q[0]), Q.push_back(Q[1]);
+
+  vector<pt> ans;
+  size_t i = 0, j = 0;
+  while(i < P.size() - 2 || j < Q.size() - 2) {
+      ans.push_back(P[i] + Q[j]);
+      lf dt = cross( P[i + 1] - P[i], Q[j + 1] - Q[j]);
+      if(dt >= E0 && i < P.size() - 2) ++i;
+      if(dt <= E0 && j < Q.size() - 2) ++j;
+  }
+  return ans;
+}
+
 vector< pt > cut( const vector< pt > &pol, line l ) {
   vector< pt > ans;
   for( int i = 0, n = pol.size(); i < n; ++ i ) {
