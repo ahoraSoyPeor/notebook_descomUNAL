@@ -10,4 +10,3 @@ nmap <c-l> <c-w>l
 tnoremap <c-h> <c-w>h
 
 nmap QQ :qa! <cr>
-tnoremap QQ <c-w>N:qa! <cr>
