@@ -57,8 +57,8 @@ lf orient( pt a, pt b, pt c ) { return cross( b - a, c - a ); };
 bool in_angle( pt a, pt b, pt c, pt x ) {
   //assert( fabsl( orient( a, b, c ) ) > E0 );
   if( orient( a, b, c ) < -E0 )
-    return orient( a, b, x ) >= E0 || orient( a, c, x ) <= E0;
-  return orient( a, b, x ) >= E0 && orient( a, c, x ) <= E0;
+    return orient( a, b, x ) >= -E0 || orient( a, c, x ) <= -E0;
+  return orient( a, b, x ) >= -E0 && orient( a, c, x ) <= -E0;
 }
 
 struct line {
