@@ -42,38 +42,6 @@ lf areaOfIntersectionOfTwoCircles( lf r1, lf r2, lf d ) {
   lf a2 = r2 * r2 * ( betha - sinl( betha ) * cosl( betha ) );
   return a1 + a2;
 };
-const lf eps = 1e-9;
-typedef double T;
-struct pt {
-  T x, y;
-  pt operator + (pt p) { return {x+p.x, y+p.y}; }
-  pt operator - (pt p) { return {x-p.x, y-p.y}; }
-  pt operator * (pt p) { return {x*p.x-y*p.y, x*p.y+y*p.x}; }
-  pt operator * (T d) { return {x*d, y*d}; }
-  pt operator / (lf d) { return {x/d, y/d}; } /// only for floating point
-  bool operator == (pt b) { return x == b.x && y == b.y; }
-  bool operator != (pt b) { return !(*this == b); }
-  bool operator < (const pt &o) const { return y < o.y || (y == o.y && x < o.x); }
-  bool operator > (const pt &o) const { return y > o.y || (y == o.y && x > o.x); }
-};
-int cmp (lf a, lf b) { return (a + eps < b ? -1 :(b + eps < a ? 1 : 0)); }
-
-T norm(pt a) { return a.x*a.x + a.y*a.y; }
-lf abs(pt a) { return sqrt(norm(a)); }
-lf arg(pt a) { return atan2(a.y, a.x); }
-
-T dot(pt a, pt b) { return a.x*b.x + a.y*b.y; }
-T cross(pt a, pt b) { return a.x*b.y - a.y*b.x; }
-T orient(pt a, pt b, pt c) { return cross(b-a,c-a); }
-
-pt rot90ccw(pt p) { return {-p.y, p.x}; }
-pt rot90cw(pt p) { return {p.y, -p.x}; }
-pt translate(pt p, pt v) { return p+v; }
-pt scale(pt p, double f, pt c) { return c + (p-c)*f; }
-bool are_perp(pt v, pt w) { return dot(v,w) == 0; }
-int sign(T x) { return (T(0) < x) - (x < T(0)); }
-pt unit(pt a) { return a/abs(a); }
-
 bool half(pt p) { /// true if is in (0, 180]
   assert(p.x != 0 || p.y != 0); /// the argument of (0,0) is undefined
   return p.y > 0 || (p.y == 0 && p.x < 0);
@@ -91,11 +59,8 @@ bool on_segment(pt a, pt b, pt p) {
   return orient(a,b,p) == 0 && in_disk(a,b,p);
 }
 bool proper_inter(pt a, pt b, pt c, pt d, pt &out) {
-  T oa = orient(c,d,a),
-  ob = orient(c,d,b),
-  oc = orient(a,b,c),
-  od = orient(a,b,d);
-  /// Proper intersection exists iff opposite signs
+  T oa = orient(c,d,a), ob = orient(c,d,b),
+    oc = orient(a,b,c), od = orient(a,b,d);
   if (oa*ob < 0 && oc*od < 0) {
     out = (a*ob - b*oa) / (ob-oa);
     return true;
@@ -150,7 +115,6 @@ struct polygon {
   }
   pt& operator[] (int i){ return p[i]; }
 };
-
 int tangents(circle c1, circle c2, bool inner, vector<pair<pt,pt>> &out) {
   if(inner) c2.r = -c2.r;
   pt d = c2.c-c1.c;
