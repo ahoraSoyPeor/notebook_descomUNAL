@@ -14,7 +14,7 @@ lf f(lf x) {
   return answer;
 }
 
-//given y=f(x) for x [0,degree)
+//given y=f(x) for x [0,degree]
 vector< int > interpolation( vector< int > &y )
 {
   int n = (int) y.size();
