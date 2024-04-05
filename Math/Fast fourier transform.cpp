@@ -1,15 +1,11 @@
-///previous version of fft gives WA test 24 in this problem https://codeforces.com/gym/104373/problem/E also it runs in 826 ms
-///new version of fft gives AC in the same problem and runs in 390 ms 
-
+///Complexity: O(N log N)
+///tested: https://codeforces.com/gym/104373/problem/E 
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define sz(v) ((int)v.size())
 #define trav(a, x) for(auto& a : x)
 #define all(v) v.begin(),v.end()
- 
 typedef vector<ll> vl;
 typedef vector<int> vi;
- 
- 
 typedef complex<double> C;
 typedef vector<double> vd;
 void fft(vector<C>& a) {
