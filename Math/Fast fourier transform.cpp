@@ -40,7 +40,7 @@ vl conv(const vl& a, const vl& b) {
 	trav(x, in) x *= x;
 	rep(i,0,n) out[i] = in[-i & (n - 1)] - conj(in[i]);
 	fft(out);
-    vector<ll> resp(sz(res));
+    	vector<ll> resp(sz(res));
 	rep(i,0,sz(res)) resp[i] = round(imag(out[i]) / (4.0 * n));
 	return resp;
 }
