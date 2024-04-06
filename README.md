@@ -11,4 +11,4 @@ Referencias:
 - [Victor Lecomte: Handbook Of Geometry For Competitive Programmers.](https://victorlecomte.com/cp-geo.pdf)https://victorlecomte.com/cp-geo.pdf
 
 Usa este comando para generar el archivo, felicitaciones por llegar a la mundial :D
-notebook-generator ../GIT/notebook_descomUNAL -a "Universidad Nacional de Colombia" -o wf-notebook.pdf -s 9 -c 2 -p a4paper -I ../GIT/notebook_descomUNAL/cover.png -i "UNAL Bogota"
+notebook-generator ../GIT/notebook_descomUNAL -a "Universidad Nacional de Colombia" -o wf-notebook.pdf -s 10 -c 3 -p a4paper -I ../GIT/notebook_descomUNAL/cover.png -i "UNAL Bogota"
