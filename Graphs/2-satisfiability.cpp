@@ -1,4 +1,4 @@
-/// Complexity: O(|N|)
+//Complexity: O(|N|)
 struct sat2 {
   int n;
   vector<vector<vector<int>>> g;

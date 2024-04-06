@@ -1,4 +1,4 @@
-/// Complexity: O(|N|*log|N|)
+//Complexity: O(|N|*log|N|)
 struct node {
   node *left, *right;
   int v;

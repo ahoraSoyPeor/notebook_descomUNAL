@@ -1,5 +1,5 @@
-/// Complexity: O(|V|^3)
-/// Tested: https://tinyurl.com/y8eu433d
+//Complexity: O(|V|^3)
+//Tested: https://tinyurl.com/y8eu433d
  struct stoer_wagner {
   int n;
   vector<vector<int>> g;
@@ -36,6 +36,6 @@
         }
       }
     }
-    return {best_weight, best_cut}; /// best_cut contains all nodes in the same set
+    return {best_weight, best_cut}; //best_cut contains all nodes in the same set
   }
  };

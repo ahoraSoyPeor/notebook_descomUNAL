@@ -1,6 +1,6 @@
-/// Complexity: O(|N|)
-///to = i - from[i];
-///len = to - from[i] + 1 = i - 2 * from[i] + 1;
+//Complexity: O(|N|)
+//to = i - from[i];
+//len = to - from[i] + 1 = i - 2 * from[i] + 1;
 vector<int> manacher(string &s) {
   int n = s.size(), p = 0, pr = -1;
   vector<int> from(2*n-1);

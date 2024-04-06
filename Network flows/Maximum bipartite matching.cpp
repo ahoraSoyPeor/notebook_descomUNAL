@@ -1,4 +1,4 @@
-/// Complexity: O(|E|*|V|)
+//Complexity: O(|E|*|V|)
 struct mbm {
   int l, r;
   vector<vector<int>> g;

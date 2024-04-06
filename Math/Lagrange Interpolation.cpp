@@ -1,4 +1,4 @@
-/// Complexity: O(|N|^2)
+//Complexity: O(|N|^2)
 vector<lf> X, F;
 lf f(lf x) {
   lf answer = 0;

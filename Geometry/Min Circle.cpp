@@ -7,7 +7,6 @@ Circle min_circle( vector< pt > v ) {
         ans = Circle( v[i], v[a], v[b] );
     return ans;
   };
-
   auto f1 = [&]( int a ){
     Circle ans( v[a], 0.0L );
     for( int i = 0; i < a; ++ i )
@@ -15,11 +14,9 @@ Circle min_circle( vector< pt > v ) {
         ans = f2( i, a );
     return ans;
   };
-
   Circle ans( v[0], 0.0L );
   for( int i = 1; i < (int) v.size(); ++ i )
     if( ans.contains( v[i] ) == OUT )
       ans = f1( i );
-
   return ans;
 }

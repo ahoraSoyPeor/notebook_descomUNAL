@@ -1,16 +1,16 @@
-/// Complexity: O(|N+Q|*sqrt(|N|)*|ADD/DEL|)
-// Requires add(), delete() and get_ans()
+//Complexity: O(|N+Q|*sqrt(|N|)*|ADD/DEL|)
+//Requires add(), delete() and get_ans()
 struct query {
   int l, r, idx;
   query (int l, int r, int idx) : l(l), r(r), idx(idx) {}
 };
-int S; // s = sqrt(n)
+int S; //s = sqrt(n)
 bool cmp (const query &a, const query &b) {
   int A = a.l/S, B = b.l/S;
   if (A != B) return A < B;
   return A & 1 ? a.r > b.r : a.r < b.r;
 }
-S = sqrt(n); // n = size of array
+S = sqrt(n); //n = size of array
 sort(q.begin(), q.end(), cmp);
 int l = 0, r = -1;
 for (int i = 0; i < q.size(); ++i) {

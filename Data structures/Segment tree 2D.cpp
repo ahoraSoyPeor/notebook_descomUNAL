@@ -1,4 +1,4 @@
-/// Complexity: log(|N|)^2 per operation
+//Complexity: log(|N|)^2 per operation
 struct info {
   ll val;
 };
@@ -7,7 +7,7 @@ info merge(info a, info b) {
 }
 info NEUTRAL = {LLONG_MIN};
 struct segtree_2d {
-  int n, m; /// 0-indexed
+  int n, m; //0-indexed
   vector<vector<info>> t;
   segtree_2d(int n, int m) : n(n), m(m), t(2*n, vector<info>(2*m, NEUTRAL)) {} 
   segtree_2d(int n, int m, vector<vector<info>> &v) : n(n), m(m), t(2*n, vector<info>(2*m, NEUTRAL)) {

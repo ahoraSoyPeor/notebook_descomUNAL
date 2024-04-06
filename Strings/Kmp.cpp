@@ -1,4 +1,4 @@
-/// Complexity: O(|N|)
+//Complexity: O(|N|)
 vector<int> get_phi(string &p) {
   vector<int> phi(p.size());
   phi[0] = 0;

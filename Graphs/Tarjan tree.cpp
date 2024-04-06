@@ -1,11 +1,11 @@
-/// Complexity: O(|N|)
+//Complexity: O(|N|)
 struct tarjan_tree {
   int n;
   vector<vector<int>> g, comps;
   vector<pii> bridge;
   vector<int> id, art;
   tarjan_tree(int n) : n(n), g(n+1), id(n+1), art(n+1) {}
-  void add_edge(vector<vector<int>> &g, int u, int v) { /// nodes from [1, n]
+  void add_edge(vector<vector<int>> &g, int u, int v) { //nodes from [1, n]
     g[u].push_back(v);
     g[v].push_back(u);
   }

@@ -1,4 +1,4 @@
-/// Complexity: O(log(|N|))
+//Complexity: O(log(|N|))
 bool diophantine(ll a, ll b, ll c, ll &x, ll &y, ll &g) {
   x = y = 0;
   if(a == 0 && b == 0) return c == 0;
@@ -12,12 +12,12 @@ bool diophantine(ll a, ll b, ll c, ll &x, ll &y, ll &g) {
   y = (c - a*x) / b;
   return true;
 }
-///finds the first k | x + b * k / gcd(a, b) >= val
+//finds the first k | x + b * k / gcd(a, b) >= val
 ll greater_or_equal_than(ll a, ll b, ll x, ll val, ll g) {
   lf got = 1.0 * (val - x) * g / b;
   return b > 0 ? ceil(got) : floor(got);
 }
-void get_xy (ll a, ll b, ll &x, ll &y, ll k, ll g) { /// if for y, change the order to b,a y,x
+void get_xy (ll a, ll b, ll &x, ll &y, ll k, ll g) { //if for y, change the order to b,a y,x
   x = x + b / g * k;
   y = y - a / g * k;
 }

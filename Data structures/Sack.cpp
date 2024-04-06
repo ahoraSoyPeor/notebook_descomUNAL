@@ -1,4 +1,4 @@
-/// Complexity: |N|*log(|N|)
+//Complexity: |N|*log(|N|)
 int dfs(int u, int p = -1) {
   who[t] = u; fr[u] = t++;
   pii best = {0, -1};
@@ -13,7 +13,7 @@ int dfs(int u, int p = -1) {
   big[u] = best.second;
   return sz;
 }
-void add(int u, int x) { /// x == 1 add, x == -1 delete
+void add(int u, int x) { //x == 1 add, x == -1 delete
   cnt[u] += x;
 }
 void go(int u, int p = -1, bool keep = true) {
@@ -21,7 +21,7 @@ void go(int u, int p = -1, bool keep = true) {
     if(v != p && v != big[u])
       go(v, u, 0);
   if(big[u] != -1) go(big[u], u, 1);
-  /// add all small
+  //add all small
   for(auto v : g[u])
     if(v != p && v != big[u])
       for(int i = fr[v]; i <= to[v]; i++)

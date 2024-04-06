@@ -1,4 +1,4 @@
-/// Complexity: O(|N|*alphabet)
+//Complexity: O(|N|*alphabet)
 const int alpha = 256;
 vector<vector<int>> kmp_automaton(string &t) {
   vector<vector<int>> aut( t.size() + 1, vector<int> ( alpha ) );

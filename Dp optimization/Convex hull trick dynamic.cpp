@@ -1,4 +1,4 @@
-/// Complexity: O(|N|*log(|N|))
+//Complexity: O(|N|*log(|N|))
 typedef ll T;
 const T is_query = -(1LL<<62);
 struct line {
@@ -29,8 +29,8 @@ struct CHT : public multiset<line> {
 		while(next(y) != end() && bad(next(y))) erase(next(y));
 		while(y != begin() && bad(prev(y)))erase(prev(y));
 	}
-	T eval(T x) { /// for maximum
+	T eval(T x) { //for maximum
 		auto l = *lower_bound({x, is_query});
 		return l.m*x+l.b;
 	}
-}; // for minimum, you must change (b, m) to (-b, -m)
+}; //for minimum, you must change (b, m) to (-b, -m)

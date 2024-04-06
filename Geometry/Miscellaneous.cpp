@@ -39,8 +39,8 @@ lf areaOfIntersectionOfTwoCircles( lf r1, lf r2, lf d ) {
   lf a2 = r2 * r2 * ( betha - sinl( betha ) * cosl( betha ) );
   return a1 + a2;
 };
-bool half(pt p) { /// true if is in (0, 180]
-  assert(p.x != 0 || p.y != 0); /// the argument of (0,0) is undefined
+bool half(pt p) { //true if is in (0, 180]
+  assert(p.x != 0 || p.y != 0); //the argument of (0,0) is undefined
   return p.y > 0 || (p.y == 0 && p.x < 0);
 }
 bool half_from(pt p, pt v = {1, 0}) {
@@ -77,10 +77,10 @@ set<pt> inter_ss(pt a, pt b, pt c, pt d) {
 lf pt_to_seg(pt a, pt b, pt p) {
   if(a != b) {
     line l(a,b);
-    if (l.cmp_proj(a,p) && l.cmp_proj(p,b)) /// if closest to  projection
-      return l.dist(p); /// output distance to line
+    if (l.cmp_proj(a,p) && l.cmp_proj(p,b)) //if closest to  projection
+      return l.dist(p); //output distance to line
   }
-  return min(abs(p-a), abs(p-b)); /// otherwise distance to A or B
+  return min(abs(p-a), abs(p-b)); //otherwise distance to A or B
 }
 lf seg_to_seg(pt a, pt b, pt c, pt d) {
   pt dummy;
@@ -133,5 +133,5 @@ int tangent_through_pt(pt p, circle c, pair<pt, pt> &out) {
   out = {s, t};
   return 1 + (abs(c.c-p) == c.r);
 }
-/// cross product 3D (VxW)
+//cross product 3D (VxW)
 { v.y*w.z - v.z*w.y, v.z*w.x - v.x*w.z, v.x*w.y - v.y*w.x };

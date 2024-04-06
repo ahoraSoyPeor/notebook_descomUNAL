@@ -1,4 +1,4 @@
-/// 1000234999, 1000567999, 1000111997, 1000777121
+//1000234999, 1000567999, 1000111997, 1000777121
 const int MODS[] = { 1001864327, 1001265673 };
 const mint BASE(256, 256), ZERO(0, 0), ONE(1, 1);
 inline int add(int a, int b, const int& mod) { return a+b >= mod ? a+b-mod : a+b; }

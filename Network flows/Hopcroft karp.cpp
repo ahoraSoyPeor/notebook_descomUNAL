@@ -1,9 +1,9 @@
-/// Complexity: O(|E|*sqrt(|V|))
+//Complexity: O(|E|*sqrt(|V|))
 struct mbm {
   vector<vector<int>> g;
   vector<int> d, match;
   int nil, l, r;
-  /// u -> 0 to l, v -> 0 to r
+  //u -> 0 to l, v -> 0 to r
   mbm(int l, int r) : l(l), r(r), nil(l+r), g(l+r),
                       d(1+l+r, INF), match(l+r, l+r) {}
   void add_edge(int a, int b) {

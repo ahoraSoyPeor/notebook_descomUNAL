@@ -1,11 +1,11 @@
-/// Complexity: O(|N|*log|N|)
+//Complexity: O(|N|*log|N|)
 struct info { int val; };
 info merge(info &a, info &b) {
   return {a.val + b.val};
 }
 info NEUTRAL = {0};
-struct segtree { // for point update and range queries, supports left to right merge
-  int n; /// 0-indexed
+struct segtree { //for point update and range queries, supports left to right merge
+  int n; //0-indexed
   vector<info> t;
   segtree(int n, vector<int> &v) : n(n), t(2*n) {
     for(int i = 0; i < n; i++) t[i+n] = {v[i]};

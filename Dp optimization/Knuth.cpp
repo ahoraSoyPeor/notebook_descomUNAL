@@ -1,9 +1,9 @@
-/// Complexity: O(|N|^2))
-/// ******* Theory *******
-/// dp[i][j]= min(dp[i][k]+dp[k][j])+C[i][j], i<k<j
-/// where opt[i][j−1] ≤ opt[i][j] ≤ opt[i+1][j]. 
-/// sufficient (but not necessary) condition for above is 
-/// C[a][c] + C[b][d] ≤ C[a][d] + C[b][c] and C[b][c] ≤ C[a][d] where a ≤ b ≤ c ≤ d.
+//Complexity: O(|N|^2))
+//******* Theory *******
+//dp[i][j]= min(dp[i][k]+dp[k][j])+C[i][j], i<k<j
+//where opt[i][j−1] ≤ opt[i][j] ≤ opt[i+1][j]. 
+//sufficient (but not necessary) condition for above is 
+//C[a][c] + C[b][d] ≤ C[a][d] + C[b][c] and C[b][c] ≤ C[a][d] where a ≤ b ≤ c ≤ d.
 for(int i = 1; i <= n; i++) {
   opt[i][i] = i;
   dp[i][i] = sum[i] - sum[i-1];

@@ -1,12 +1,12 @@
-///A -> adjacency matrix
-///It is necessary to compute the D-A matrix, where D is a diagonal matrix
-///that contains the degree of each node.
-///To compute the number of spanning trees it's necessary to compute any
-///D-A cofactor
-///C(i, j) = (-1)^(i+j) * Mij
-///Where Mij is the matrix determinant after removing row i and column j
+//A -> adjacency matrix
+//It is necessary to compute the D-A matrix, where D is a diagonal matrix
+//that contains the degree of each node.
+//To compute the number of spanning trees it's necessary to compute any
+//D-A cofactor
+//C(i, j) = (-1)^(i+j) * Mij
+//Where Mij is the matrix determinant after removing row i and column j
 double mat[MAX][MAX];
-///call determinant(n - 1)
+//call determinant(n - 1)
 double determinant(int n) {
   double det = 1.0;
   for(int k = 0; k < n; k++) {

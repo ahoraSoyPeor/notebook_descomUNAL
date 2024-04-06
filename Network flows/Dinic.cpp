@@ -1,4 +1,4 @@
-/// Complexity: O(|E|*|V|^2)
+//Complexity: O(|E|*|V|^2)
 struct edge { int v, cap, inv, flow; };
 struct network {
   int n, s, t;

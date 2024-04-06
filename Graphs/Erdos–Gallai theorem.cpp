@@ -1,6 +1,6 @@
-/// Complexity: O(|N|*log|N|)
-/// Theorem: it gives a necessary and sufficient condition for a finite sequence
-///          of natural numbers to be the degree sequence of a simple graph
+//Complexity: O(|N|*log|N|)
+//Theorem: it gives a necessary and sufficient condition for a finite sequence
+//         of natural numbers to be the degree sequence of a simple graph
 bool erdos(vector<int> &d) {
   ll sum = 0;
   for(int i = 0; i < d.size(); ++i) sum += d[i];

@@ -1,4 +1,3 @@
-const int MOD = 1e9+7;
 struct matrix {
   const int N = 2;
   int m[N][N], r, c;

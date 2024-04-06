@@ -1,4 +1,4 @@
-/// Complexity: O(log(|N|))
+//Complexity: O(log(|N|))
 ll eea(ll a, ll b, ll& x, ll& y) {
   ll xx = y = 0; ll yy = x = 1;
   while (b) {

@@ -1,4 +1,4 @@
-/// Complexity: O(|V|^3)
+//Complexity: O(|V|^3)
 typedef int type;
 struct matching_weighted {
   int l, r;
@@ -8,8 +8,8 @@ struct matching_weighted {
   }
   void add_edge(int a, int b, type cost) { c[a][b] = cost; }
   type matching() {
-    vector<type> v(r), d(r); // v: potential
-    vector<int> ml(l, -1), mr(r, -1); // matching pairs
+    vector<type> v(r), d(r); //v: potential
+    vector<int> ml(l, -1), mr(r, -1); //matching pairs
     vector<int> idx(r), prev(r);
     iota(idx.begin(), idx.end(), 0);
     auto residue = [&](int i, int j) { return c[i][j]-v[j]; };
@@ -63,7 +63,7 @@ struct matching_weighted {
     }
     type opt = 0;
     for (int i = 0; i < l; ++i)
-      opt += c[i][ml[i]]; // (i, ml[i]) is a solution
+      opt += c[i][ml[i]]; //(i, ml[i]) is a solution
     return opt;
   }
 };

@@ -1,9 +1,9 @@
-/// Complexity: O(|E||V|^2)
+//Complexity: O(|E||V|^2)
 struct network {
   struct struct_edge { int v; struct_edge * n; };
   typedef struct_edge* edge;
   int n;
-  struct_edge pool[MAXE]; ///2*n*n;
+  struct_edge pool[MAXE]; //2*n*n;
   edge top;
   vector<edge> adj;
   queue<int> q;
@@ -87,7 +87,7 @@ struct network {
     match[v] = u; match[u] = v;
     return u != -1;
   }
-  /// (i < net.match[i]) => means match
+  //(i < net.match[i]) => means match
   int maximum_matching() {
     int ans = 0;
     for(int u = 0; u < n; u++)

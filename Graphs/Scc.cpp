@@ -1,4 +1,4 @@
-/// Complexity: O(|N|)
+//Complexity: O(|N|)
 int scc(int n) {
   vector<int> dfn(n+1), low(n+1), in_stack(n+1);
   stack<int> st;
@@ -18,7 +18,7 @@ int scc(int n) {
       int v;
       do {
         v = st.top(); st.pop();
-//        id[v] = tag;
+//       id[v] = tag;
         in_stack[v] = false;
       } while (v != u);
       tag++;

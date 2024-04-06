@@ -1,7 +1,7 @@
 namespace linear_seq {
-  int m; // a = first m terms
-  vector < int > p, a;// p = recurrence, length is m 
-  inline vector < int > BM(vector < int > x) { // finds shortest linear recurrence given first x terms in O(x^2)
+  int m; //a = first m terms
+  vector < int > p, a;//p = recurrence, length is m 
+  inline vector < int > BM(vector < int > x) { //finds shortest linear recurrence given first x terms in O(x^2)
     vector < int > ls, cur; 
     int lf, ld;
     for (int i = 0; i < (int) x.size(); ++i) {
@@ -48,7 +48,7 @@ namespace linear_seq {
     r.resize(m);
     return r;
   }
-  inline int calc(long long k) { // O(m*m*log(k)) 
+  inline int calc(long long k) { //O(m*m*log(k)) 
     if (m == 0) return 0;
     vector < int > bs(m), r(m);
     if (m == 1) bs[0] = p[0];

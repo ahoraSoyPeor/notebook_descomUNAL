@@ -1,4 +1,4 @@
-/// Complexity: log(|N|) per operation
+//Complexity: log(|N|) per operation
 uniform_int_distribution<ll> rnd(0, LLONG_MAX);
 typedef long long T;
 struct treap {
@@ -80,7 +80,7 @@ void print(treap *x) {
   cout << value(x) << ", ";
   print(x->right);
 }
-int find_left_count(treap* root, treap* x) { /// x not inclusive
+int find_left_count(treap* root, treap* x) { //x not inclusive
   if(!x) return 0;
   int ans = cnt(x->left);
   while(x != root) {

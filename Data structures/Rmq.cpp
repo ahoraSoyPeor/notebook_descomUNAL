@@ -1,4 +1,4 @@
-/// Complexity: O(|N|*log|N|)
+//Complexity: O(|N|*log|N|)
 struct rmq {
   vector<vector<int>> table;
   rmq(vector<int> &v) : table(20, vector<int>(v.size())) {

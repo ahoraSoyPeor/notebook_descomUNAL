@@ -1,4 +1,4 @@
-/// Complexity: O(|N|^2 * |M|) N variables, N restrictions
+//Complexity: O(|N|^2 * |M|) N variables, N restrictions
 const double EPS = 1e-6;
 typedef vector<double> vec;
 namespace simplex {
@@ -28,7 +28,7 @@ namespace simplex {
         c[i] -= c[y] * a[x][i];
     c[y] =- c[y] * a[x][y];
   }
-  /// A is a vector of 1 and 0. B is the limit restriction. C is the factors of O.F.
+  //A is a vector of 1 and 0. B is the limit restriction. C is the factors of O.F.
   pair<double, vec> simplex(vector<vec> &A, vec &B, vec &C) {
     a = A; b = B; c = C;
     n = b.size(); m = c.size(); z = 0.0;
@@ -45,7 +45,7 @@ namespace simplex {
       if(x < 0) break;
       for(int i = 0; i < m; i++)
         if(a[x][i] < -EPS) { y = i; break; }
-      assert(y >= 0); // no sol
+      assert(y >= 0); //no sol
       pivot(x, y);
     }
     while(1) {
@@ -59,7 +59,7 @@ namespace simplex {
       for(int i = 0; i < n; i++)
         if(a[i][y] > EPS && b[i] / a[i][y] < mn)
           mn = b[i] / a[i][y], x = i;
-      assert(x >= 0); // unbound
+      assert(x >= 0); //unbound
       pivot(x, y);
     }
     vec r(m);

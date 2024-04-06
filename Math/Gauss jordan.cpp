@@ -1,4 +1,4 @@
-/// Complexity: O(|N|^3)
+//Complexity: O(|N|^3)
 const int EPS = 1;
 int gauss (vector<vector<int>> a, vector<int> &ans) {
   int n = a.size(), m = a[0].size()-1;
@@ -12,7 +12,7 @@ int gauss (vector<vector<int>> a, vector<int> &ans) {
     where[col] = row;
     for(int i = 0; i < n; ++i)
       if(i != row) {
-        int c = divide(a[i][col], a[row][col]); /// precalc inverses
+        int c = divide(a[i][col], a[row][col]); //precalc inverses
         for(int j = col; j <= m; ++j)
           a[i][j] = sub(a[i][j], mul(a[row][j], c));
       }
@@ -28,6 +28,6 @@ int gauss (vector<vector<int>> a, vector<int> &ans) {
     if(sum != a[i][m]) return 0;
   }
   for(int i = 0; i < m; ++i)
-    if(where[i] == -1) return -1; /// infinite solutions
+    if(where[i] == -1) return -1; //infinite solutions
   return 1;
 }
