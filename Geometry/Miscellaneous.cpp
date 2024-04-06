@@ -20,15 +20,12 @@ lf inter_cp(circle c, polygon p) {
 }
 bool circumcircle_contains( triangle tr, pt D ) {//triange CCW
   pt A = tr.vert[0] - D, B = tr.vert[1] - D, C = tr.vert[2] - D;
-
   lf norm_a = norm2( tr.vert[0] ) - norm2( D );
   lf norm_b = norm2( tr.vert[1] ) - norm2( D );
   lf norm_c = norm2( tr.vert[2] ) - norm2( D );
-
   lf det1 = A.x * ( B.y * norm_c - norm_b * C.y );
   lf det2 = B.x * ( C.y * norm_a - norm_c * A.y );
   lf det3 = C.x * ( A.y * norm_b - norm_a * B.y );
-
   return det1 + det2 + det3 > E0;
 }
 lf areaOfIntersectionOfTwoCircles( lf r1, lf r2, lf d ) {
@@ -91,7 +88,6 @@ lf seg_to_seg(pt a, pt b, pt c, pt d) {
   return min({pt_to_seg(a,b,c), pt_to_seg(a,b,d),
               pt_to_seg(c,d,a), pt_to_seg(c,d,b)});
 }
-
 enum {IN, OUT, ON};
 struct polygon {
   vector<pt> p;
@@ -137,3 +133,5 @@ int tangent_through_pt(pt p, circle c, pair<pt, pt> &out) {
   out = {s, t};
   return 1 + (abs(c.c-p) == c.r);
 }
+/// cross product 3D (VxW)
+{ v.y*w.z - v.z*w.y, v.z*w.x - v.x*w.z, v.x*w.y - v.y*w.x };

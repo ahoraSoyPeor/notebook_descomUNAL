@@ -1,5 +1,4 @@
 /// Complexity: O(|N|)
-/// Tested: https://tinyurl.com/y6gfzgsm
 int minimum_expression(string s) {
   s = s+s;
   int len = s.size(), i = 0, j = 1, k = 0;

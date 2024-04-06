@@ -1,4 +1,3 @@
-/// Tested: https://tinyurl.com/y8qstx97
 /// 1000234999, 1000567999, 1000111997, 1000777121
 const int MODS[] = { 1001864327, 1001265673 };
 const mint BASE(256, 256), ZERO(0, 0), ONE(1, 1);

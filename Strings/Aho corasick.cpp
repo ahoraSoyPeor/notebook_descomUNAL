@@ -1,5 +1,4 @@
 /// Complexity: O(|text|+SUM(|pattern_i|)+matches)
-/// Tested: https://tinyurl.com/y2zq594p
 const static int alpha = 26;
 int trie[N][alpha], fail[N], nodes;
 void add(string &s, int i) {

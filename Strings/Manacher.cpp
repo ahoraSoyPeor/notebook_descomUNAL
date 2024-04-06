@@ -1,5 +1,4 @@
 /// Complexity: O(|N|)
-/// Tested: https://tinyurl.com/y6upxbpa
 ///to = i - from[i];
 ///len = to - from[i] + 1 = i - 2 * from[i] + 1;
 vector<int> manacher(string &s) {

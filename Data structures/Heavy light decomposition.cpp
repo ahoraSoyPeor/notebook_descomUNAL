@@ -1,5 +1,4 @@
 /// Complexity: O(|N|)
-/// Tested: https://tinyurl.com/ybdbmbw7(problem L)
 int idx; /// top is father of the chain, up is father of a node
 vector<int> len, depth, in, out, top, up;
 int dfs_len( int u, int p, int d ) {

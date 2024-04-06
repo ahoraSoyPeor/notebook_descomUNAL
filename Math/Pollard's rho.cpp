@@ -1,5 +1,3 @@
-/// Complexity: ???
-/// Tested: Not yet
 ll pollard_rho(ll n, ll c) {
   ll x = 2, y = 2, i = 1, k = 2, d;
   while (true) {

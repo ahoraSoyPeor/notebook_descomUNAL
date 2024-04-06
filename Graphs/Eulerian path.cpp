@@ -1,5 +1,4 @@
 /// Complexity: O(|N|)
-/// Tested: https://tinyurl.com/y85t8e83
 struct edge {
   int v; //list<edge>::iterator rev;
   edge(int v) : v(v) {}

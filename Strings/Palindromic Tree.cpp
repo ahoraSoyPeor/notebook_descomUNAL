@@ -1,5 +1,4 @@
 /// Complexity: O(|N|*log(|alphabet|))
-/// Tested: https://tinyurl.com/yxm8onrs
 struct palindromic_tree {
   struct node{
     int len, link;

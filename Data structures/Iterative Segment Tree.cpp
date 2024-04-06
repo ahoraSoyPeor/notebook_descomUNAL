@@ -1,6 +1,4 @@
 /// Complexity: O(|N|*log|N|)
-/// Tested: https://tinyurl.com/jrdea8
-
 struct info { int val; };
 info merge(info &a, info &b) {
   return {a.val + b.val};

@@ -1,5 +1,4 @@
 /// Complexity: O(|N|*log(|N|))
-/// Tested: https://tinyurl.com/y8wdubdw
 const int alpha = 400; 
 struct suffix_array { // s MUST not have 0 value
   vector<int> sa, pos, lcp;

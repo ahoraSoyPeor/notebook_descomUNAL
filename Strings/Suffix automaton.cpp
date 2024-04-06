@@ -1,5 +1,4 @@
 /// Complexity: O(|N|*log(|alphabet|))
-/// Tested: https://tinyurl.com/y7cevdeg
 struct suffix_automaton {
   struct node {
     int len, link, cnt, first_pos; bool end; /// cnt is endpos size, first_pos is minimum of endpos

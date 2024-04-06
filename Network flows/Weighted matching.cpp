@@ -1,5 +1,4 @@
 /// Complexity: O(|V|^3)
-/// Tested: https://tinyurl.com/ycpq8eyl problem G
 typedef int type;
 struct matching_weighted {
   int l, r;

@@ -1,5 +1,4 @@
 /// Complexity: O(|E||V|^2)
-/// Tested: https://tinyurl.com/oe5rnpk
 struct network {
   struct struct_edge { int v; struct_edge * n; };
   typedef struct_edge* edge;

@@ -1,4 +1,3 @@
-/// Tested: not yet
 ///A -> adjacency matrix
 ///It is necessary to compute the D-A matrix, where D is a diagonal matrix
 ///that contains the degree of each node.

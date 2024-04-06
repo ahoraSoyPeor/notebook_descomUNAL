@@ -1,5 +1,4 @@
 /// Complexity: O(|N|^2 * |M|) N variables, N restrictions
-/// Tested: https://tinyurl.com/ybphh57p
 const double EPS = 1e-6;
 typedef vector<double> vec;
 namespace simplex {

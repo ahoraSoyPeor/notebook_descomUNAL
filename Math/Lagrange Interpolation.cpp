@@ -1,5 +1,4 @@
 /// Complexity: O(|N|^2)
-/// Tested: https://tinyurl.com/y23sh38k
 vector<lf> X, F;
 lf f(lf x) {
   lf answer = 0;
@@ -13,21 +12,16 @@ lf f(lf x) {
   }
   return answer;
 }
-
 //given y=f(x) for x [0,degree]
-vector< int > interpolation( vector< int > &y )
-{
+vector< int > interpolation( vector< int > &y ) {
   int n = (int) y.size();
   vector< int > u = y, ans( n ), sum( n );
   ans[0] = u[0], sum[0] = 1;
-  for( int i = 1; i < n; ++i )
-  {
+  for( int i = 1; i < n; ++i ) {
     int inv = modpow( i, mod - 2 );
     for( int j = n - 1; j >= i; --j )
       u[j] = 1LL * (u[j] - u[j - 1] + mod) * inv % mod;
- 
-    for( int j = i; j > 0; --j )
-    {
+    for( int j = i; j > 0; --j ) {
       sum[j] = (sum[j - 1] - 1LL * (i - 1) * sum[j] % mod + mod) % mod;
       ans[j] = (ans[j] + 1LL * sum[j] * u[i]) % mod;
     }

@@ -1,5 +1,3 @@
-/// Complexity: ???
-/// Tested: A lot.. but no link
 ll mul (ll a, ll b, ll mod) {
   ll ret = 0;
   for(a %= mod, b %= mod; b != 0;

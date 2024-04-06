@@ -1,12 +1,8 @@
 set spr ai sw=2 ts=2
-
 au vimenter *.cpp :vert term ++cols=60
-
 nmap <f5> :w <cr> <c-l> clear <cr> make <cr>
 nmap <f6> :w <cr> <c-l> clear <cr> make && ./sol < in <cr>
 tnoremap <f7> ./sol < in <cr>
-
 nmap <c-l> <c-w>l
 tnoremap <c-h> <c-w>h
-
 nmap QQ :qa! <cr>

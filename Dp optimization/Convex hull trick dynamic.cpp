@@ -1,5 +1,4 @@
 /// Complexity: O(|N|*log(|N|))
-/// Tested: https://tinyurl.com/problem-L
 typedef ll T;
 const T is_query = -(1LL<<62);
 struct line {
@@ -34,5 +33,4 @@ struct CHT : public multiset<line> {
 		auto l = *lower_bound({x, is_query});
 		return l.m*x+l.b;
 	}
-};
-// for minimum, you must change (b, m) to (-b, -m)
+}; // for minimum, you must change (b, m) to (-b, -m)

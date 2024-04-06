@@ -1,5 +1,4 @@
 /// Complexity: O(|E|*sqrt(|V|))
-/// Tested: https://tinyurl.com/yad2g9g9
 struct mbm {
   vector<vector<int>> g;
   vector<int> d, match;

@@ -1,5 +1,4 @@
 /// Complexity: O(|N|^3)
-/// Tested: https://tinyurl.com/y23sh38k
 const int EPS = 1;
 int gauss (vector<vector<int>> a, vector<int> &ans) {
   int n = a.size(), m = a[0].size()-1;

@@ -1,5 +1,4 @@
 /// Complexity: O(|N+Q|*sqrt(|N|)*|ADD/DEL|)
-/// Tested: Not yet
 // Requires add(), delete() and get_ans()
 struct query {
   int l, r, idx;

@@ -1,5 +1,3 @@
-/// Complexity: ?????
-/// Tested: Not yet
 inline lf simpson(lf fl, lf fr, lf fmid, lf l, lf r) {
   return (fl + fr + 4.0 * fmid) * (r - l) / 6.0;
 }

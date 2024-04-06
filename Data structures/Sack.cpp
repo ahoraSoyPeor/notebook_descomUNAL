@@ -1,5 +1,4 @@
 /// Complexity: |N|*log(|N|)
-/// Tested: https://tinyurl.com/y9fz8vdt
 int dfs(int u, int p = -1) {
   who[t] = u; fr[u] = t++;
   pii best = {0, -1};

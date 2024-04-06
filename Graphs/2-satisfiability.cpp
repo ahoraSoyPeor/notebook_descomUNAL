@@ -1,5 +1,4 @@
 /// Complexity: O(|N|)
-/// Tested: https://tinyurl.com/y8qhbzn4
 struct sat2 {
   int n;
   vector<vector<vector<int>>> g;

@@ -1,5 +1,4 @@
 /// Complexity: O(|E|*|V|^2)
-/// Tested: https://tinyurl.com/ya9rgoyk
 struct edge { int v, cap, inv, flow; };
 struct network {
   int n, s, t;

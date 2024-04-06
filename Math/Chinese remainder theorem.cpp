@@ -1,5 +1,4 @@
 /// Complexity: |N|*log(|N|)
-/// Tested: Not yet.
 /// finds a suitable x that meets: x is congruent to a_i mod n_i
 /** Works for non-coprime moduli.
  Returns {-1,-1} if solution does not exist or input is invalid.

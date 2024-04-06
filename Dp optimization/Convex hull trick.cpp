@@ -27,6 +27,4 @@ struct cht {
     int pos = lower_bound(inter.begin(), inter.end(), x) - inter.begin();
     return lines[pos].eval(x);
   }
-};
-// for max: order slops non-decreasing
-// for min: order slops non-descending
+}; // for max: order slops non-decreasing, for min: order slops non-descending

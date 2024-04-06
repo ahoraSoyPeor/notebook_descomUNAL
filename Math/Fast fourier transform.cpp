@@ -1,5 +1,4 @@
 ///Complexity: O(N log N)
-///tested: https://codeforces.com/gym/104373/problem/E 
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define sz(v) ((int)v.size())
 #define trav(a, x) for(auto& a : x)

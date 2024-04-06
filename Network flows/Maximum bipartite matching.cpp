@@ -1,5 +1,4 @@
 /// Complexity: O(|E|*|V|)
-/// Tested: https://tinyurl.com/yad2g9g9
 struct mbm {
   int l, r;
   vector<vector<int>> g;

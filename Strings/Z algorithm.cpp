@@ -1,5 +1,4 @@
 /// Complexity: O(|N|)
-/// Tested: https://tinyurl.com/yc3rjh4p
 vector<int> z_algorithm (string &s) {
   int n = s.size();
   vector<int> z(n);

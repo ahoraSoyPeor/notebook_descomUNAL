@@ -1,5 +1,4 @@
 /// Complexity: O(|N|^2))
-/// Tested: https://tinyurl.com/y6ofp8wb
 /// ******* Theory *******
 /// dp[i][j]= min(dp[i][k]+dp[k][j])+C[i][j], i<k<j
 /// where opt[i][j−1] ≤ opt[i][j] ≤ opt[i+1][j]. 

@@ -1,5 +1,4 @@
 /// Complexity: O(|N|*log|N|)
-/// Tested: https://tinyurl.com/y739tcsj
 struct rmq {
   vector<vector<int>> table;
   rmq(vector<int> &v) : table(20, vector<int>(v.size())) {

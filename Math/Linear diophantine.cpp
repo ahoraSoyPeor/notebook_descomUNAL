@@ -1,5 +1,4 @@
 /// Complexity: O(log(|N|))
-/// Tested: https://tinyurl.com/y8yc52gv
 bool diophantine(ll a, ll b, ll c, ll &x, ll &y, ll &g) {
   x = y = 0;
   if(a == 0 && b == 0) return c == 0;

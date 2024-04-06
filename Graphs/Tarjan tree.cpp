@@ -1,5 +1,4 @@
 /// Complexity: O(|N|)
-/// Tested: https://tinyurl.com/y9g2ljv9, https://tinyurl.com/y87q3j93
 struct tarjan_tree {
   int n;
   vector<vector<int>> g, comps;

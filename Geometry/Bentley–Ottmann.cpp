@@ -9,7 +9,6 @@ struct seg {
 bool operator<(const seg& a, const seg& b) {
     lf x = max(min(a.p.x, a.q.x), min(b.p.x, b.q.x));
     return a.get_y(x) < b.get_y(x) - EPS;
-}
-//Use where[id] = s.insert(nxt, a[id]) & s.erase(where[id]);
+} //Use where[id] = s.insert(nxt, a[id]) & s.erase(where[id]);
 set<seg> s;
 vector<set<seg>::iterator> where;

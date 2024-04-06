@@ -1,5 +1,4 @@
 /// Complexity: O(|V|*|E|^2*log(|E|))
-/// Tested: https://tinyurl.com/ycgpp47z
 template <class type>
 struct mcmf {
   struct edge { int u, v, cap, flow; type cost; };

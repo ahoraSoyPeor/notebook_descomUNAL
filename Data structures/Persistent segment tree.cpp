@@ -1,5 +1,4 @@
 /// Complexity: O(|N|*log|N|)
-/// Tested: Not yet
 struct node {
   node *left, *right;
   int v;

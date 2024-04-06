@@ -1,5 +1,4 @@
 /// Complexity: O(|N|)
-/// Tested: https://tinyurl.com/y8ujj3ws
 int scc(int n) {
   vector<int> dfn(n+1), low(n+1), in_stack(n+1);
   stack<int> st;
